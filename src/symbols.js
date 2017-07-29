@@ -1,0 +1,10 @@
+module.exports = {
+  SKIP: 'SKIP',
+  NEWLINE: 'SKIP',
+  LPAREN: 'LPAREN',
+  RPAREN: 'RPAREN',
+  IDENTIFIER: 'IDENTIFIER',
+  NUMBER: 'NUMBER',
+  STRING: 'STRING',
+  EOF: 'EOF'
+};

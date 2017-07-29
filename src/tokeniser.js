@@ -1,4 +1,7 @@
-module.exports = (inString, tokenRegexes) => {
+const patterns = require('./patterns');
+const { SKIP } = require('./symbols');
+
+module.exports = (inString) => {
   const tokens = [];
   const chars = inString.split('');
 
@@ -7,7 +10,7 @@ module.exports = (inString, tokenRegexes) => {
   for (let i = 0; i < chars.length; i++) {
     check += chars[i];
     // Test for tokens until a sucessful one is found
-    const foundToken = tokenRegexes.some(tr => {
+    const foundToken = patterns.some(tr => {
       const [regex, label] = tr;
 
       // Test if it's a token match
