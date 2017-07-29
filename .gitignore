@@ -1,0 +1,11 @@
+node_modules/
+dist/
+bin/
+.DS_Store
+.tmp
+.git
+.settings
+.idea
+.vscode
+.eslintrc.json
+*.log

@@ -1,0 +1,21 @@
+{
+  "name": "lel-interpreter",
+  "version": "1.0.0",
+  "description": "Lisp-esque language parser from scratch",
+  "main": "src/lel.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.3.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Francis Stokes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/francisrstokes/Brainfuck-Interpreter/issues"
+  },
+  "homepage": "https://github.com/francisrstokes/Brainfuck-Interpreter#readme"
+}
