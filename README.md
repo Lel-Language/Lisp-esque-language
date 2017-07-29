@@ -1,17 +1,28 @@
-# Brainfuck-Interpreter
+# Lisp-esque language (lel) parser
 
-Brainfuck interpreter using a parser generated with [Jison](https://github.com/zaach/jison).
+The lel parser takes a basic S-expression based language in and produces an AST representing the program. For example:
 
-## Running a brainfuck program
+```lisp
+(add 18
+  (multiply 11 2))
+```
 
-`node src/bf examples/hello_world.bf`
+becomes
 
-Will run the example hello world program.
+```javascript
+[
+  [
+    ["IDENTIFIER", "add"],
+    ["NUMBER", 18],
+    [
+      ["IDENTIFIER", "multiply"],
+      ["NUMBER", 11],
+      ["NUMBER", 2]
+    ]
+  ]
+]
+```
 
-## Extending the grammar
+## Tokeniser and Parser
 
-The parser only allows whitespace and the regular brainfuck symbols. If you want to add comments of features from other brainfuck-like languages, then you'll need to extend the grammar file and generate a new parser.
-
-First install dependencies: `npm i`
-
-Tokens and grammar are defined in `grammar/brainfuck.jison`. To compile the grammar to a parser yourself, run `npm run generate_parser`.
+The tokeniser and parser functionalities are written from scratch in javascript. 
