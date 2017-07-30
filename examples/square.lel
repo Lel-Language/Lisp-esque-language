@@ -1,6 +1,11 @@
 (function
-  "square" (x) (* x x))
+  square (x)
+    (* x x))
 
-(print
-  (square
-    (square 5)))
+(function
+  square-square (x)
+    (square (square (x))))
+
+(let result (square-square 5))
+
+(print result)

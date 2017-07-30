@@ -1,14 +1,6 @@
-(let
-  "name"
-  "Francis Stokes")
-
-(let
-  "theAnswer"
+(let theAnswer
   (+ 18
     (* 12 2)))
-
-(print
-  "hello, " name "\n")
 
 (print
   "Life the universe and everything = " theAnswer "\n")

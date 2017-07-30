@@ -12,10 +12,11 @@ const parse = require('../parse');
 const evaluate = require('./evaluate');
 
 readLelFile(argv[2])
-  .then(tokenise, console.error)
-  .then(validate, (err) => {
-    console.error(err.message);
+  .then(tokenise)
+  .then(validate)
+  .then(parse)
+  .then(evaluate)
+  .catch(err => {
+    console.error(err);
     process.exit(1);
   })
-  .then(parse, console.error)
-  .then(evaluate, console.error);
