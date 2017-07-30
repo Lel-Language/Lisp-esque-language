@@ -1,10 +1,16 @@
 module.exports = {
+  // Whitespace skips
   SKIP: 'SKIP',
-  NEWLINE: 'SKIP',
+
+  // Expression start/end
   LPAREN: 'LPAREN',
   RPAREN: 'RPAREN',
-  IDENTIFIER: 'IDENTIFIER',
+
+  // Primitives
   NUMBER: 'NUMBER',
   STRING: 'STRING',
+  IDENTIFIER: 'IDENTIFIER',
+
+  // End of file
   EOF: 'EOF'
 };

@@ -1,7 +1,7 @@
 {
   "name": "lel-interpreter",
   "version": "1.0.0",
-  "description": "Lisp-esque language parser from scratch",
+  "description": "Lisp-esque language",
   "main": "src/lel.js",
   "dependencies": {},
   "devDependencies": {
@@ -10,12 +10,12 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/francisrstokes/Lisp-esque-language.git"
   },
   "author": "Francis Stokes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/francisrstokes/Brainfuck-Interpreter/issues"
+    "url": "https://github.com/francisrstokes/Lisp-esque-language/issues"
   },
-  "homepage": "https://github.com/francisrstokes/Brainfuck-Interpreter#readme"
+  "homepage": "https://github.com/francisrstokes/Lisp-esque-language#readme"
 }

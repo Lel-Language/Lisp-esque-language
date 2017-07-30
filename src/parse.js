@@ -1,4 +1,6 @@
 const symbols = require('./symbols');
+const cleanString = require('./util/clean-string');
+const cleanNumber = require('./util/clean-number');
 
 let depthPointer = 0;
 const addTokenToExprTree = (ast, token) => {
@@ -16,15 +18,17 @@ const pushExpr = (ast) => {
   depthPointer++;
 };
 
-const getTokenType = (token) => token[0];
-
 module.exports = (tokens) =>
   tokens.reduce((ast, token) => {
-    const tokenType = getTokenType(token);
+    if (token.type === symbols.STRING) {
+      token.value = cleanString(token.value);
+    } else if (token.type === symbols.NUMBER) {
+      token.value = cleanNumber(token.value);
+    }
 
-    if (tokenType === symbols.LPAREN) {
+    if (token.type === symbols.LPAREN) {
       pushExpr(ast);
-    } else if (tokenType === symbols.RPAREN) {
+    } else if (token.type === symbols.RPAREN) {
       popExpr();
     } else {
       addTokenToExprTree(ast, token);

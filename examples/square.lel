@@ -1,0 +1,6 @@
+(function
+  "square" (x) (* x x))
+
+(print
+  (square
+    (square 5)))

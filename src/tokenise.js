@@ -1,5 +1,5 @@
 const patterns = require('./patterns');
-const { SKIP } = require('./symbols');
+const { SKIP, EOF } = require('./symbols');
 
 module.exports = (inString) => {
   const tokens = [];
@@ -29,7 +29,13 @@ module.exports = (inString) => {
             i = j - 1;
 
             // Add the token to the list
-            if (label !== SKIP) tokens.push([label, check]);
+            if (label !== SKIP) {
+              tokens.push({
+                isToken: true,
+                type: label,
+                value: check
+              });
+            }
             // Reset the check string
             check = '';
             // Exit from the token search
@@ -39,9 +45,9 @@ module.exports = (inString) => {
       }
     });
 
-    if (i === chars.length) {
-      tokens.push([EOF]);
-    }
+    // if (i === chars.length - 1) {
+    //   tokens.push([EOF]);
+    // }
   }
 
   return tokens;

@@ -1,10 +1,18 @@
-# Lisp-esque language (lel) parser
+# Lisp-esque language (Lel)
+
+Lel is a lisp like programming language. It is not mean for practical purposes, but more as a tool to learn how to write a programming language.
+
+## Language features
+
+
+## Parser
 
 The lel parser takes a basic S-expression based language in and produces an AST representing the program. For example:
 
 ```lisp
-(add 18
-  (multiply 11 2))
+(print
+  (+ 18
+  (* 11 2)))
 ```
 
 becomes
@@ -12,17 +20,19 @@ becomes
 ```javascript
 [
   [
-    ["IDENTIFIER", "add"],
-    ["NUMBER", 18],
+    ["IDENTIFIER", "print"],
     [
-      ["IDENTIFIER", "multiply"],
-      ["NUMBER", 11],
-      ["NUMBER", 2]
+      ["IDENTIFIER", "+"],
+      ["NUMBER", 18],
+      [
+        ["IDENTIFIER", "*"],
+        ["NUMBER", 11],
+        ["NUMBER", 2]
+      ]
     ]
   ]
 ]
 ```
 
-## Tokeniser and Parser
+Which evaluates to the meaning of life, the universe, and everything.
 
-The tokeniser and parser functionalities are written from scratch in javascript. 
