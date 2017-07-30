@@ -1,0 +1,10 @@
+(function print-times (message times)
+  (if (> times 0)
+    ((print message)
+     (print-times message (- times 1)))
+    ((print "done!\n"))))
+
+(function square (x) (* x x))
+
+(print-times "hello " (square 3))
+

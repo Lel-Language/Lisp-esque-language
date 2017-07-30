@@ -8,4 +8,5 @@
 
 (let result (square-square 5))
 
-(print result)
+(print result "\n")
+

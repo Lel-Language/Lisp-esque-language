@@ -1,6 +1,7 @@
 const symbols = require('./symbols');
 const cleanString = require('./util/clean-string');
 const cleanNumber = require('./util/clean-number');
+const cleanBool = require('./util/clean-bool');
 
 let depthPointer = 0;
 const addTokenToExprTree = (ast, token) => {
@@ -24,6 +25,8 @@ module.exports = (tokens) =>
       token.value = cleanString(token.value);
     } else if (token.type === symbols.NUMBER) {
       token.value = cleanNumber(token.value);
+    } else if (token.type === symbols.BOOLEAN) {
+      token.value = cleanBool(token.value);
     }
 
     if (token.type === symbols.LPAREN) {

@@ -14,6 +14,9 @@ module.exports = {
   list: (scope, ...items) => {
     return items;
   },
+  return: (scope, value) => {
+    return value;
+  },
   '+': (scope, ...numbers) => {
     return numbers.reduce((acc, cur) => acc + cur, 0);
   },
@@ -25,5 +28,20 @@ module.exports = {
   },
   '*': (scope, x, y) => {
     return x * y;
-  }
+  },
+  '=': (scope, x, y) => {
+    return x === y;
+  },
+  '<': (scope, x, y) => {
+    return x < y;
+  },
+  '>': (scope, x, y) => {
+    return x > y;
+  },
+  '<=': (scope, x, y) => {
+    return x <= y;
+  },
+  '>=': (scope, x, y) => {
+    return x >= y;
+  },
 };

@@ -4,7 +4,8 @@ module.exports = [
   [/^[\s\n]+$/, symbols.SKIP],
   [/^\($/, symbols.LPAREN],
   [/^\)$/, symbols.RPAREN],
-  [/^[a-zA-Z\+\-\/\*\_][a-zA-Z0-9\+\-\/\*\_]*$/, symbols.IDENTIFIER],
   [/^[0-9]+$/, symbols.NUMBER],
-  [/^\"[^\n\"]*\"$/, symbols.STRING]
+  [/^\"[^\n\"]*\"$/, symbols.STRING],
+  [/^(T|F)$/, symbols.BOOLEAN],
+  [/^[a-zA-Z\+\-\/\*\_\>\<=]*$/, symbols.IDENTIFIER],
 ];

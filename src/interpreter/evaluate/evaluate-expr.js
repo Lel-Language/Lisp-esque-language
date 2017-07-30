@@ -12,7 +12,7 @@ const evaluateExpr = (scope, expr) => {
     return evaluateFunctionExpr(scope, expr);;
   } else if (expr.isToken) {
     // Return the value of primitives directly
-    if (expr.type === symbols.STRING || expr.type === symbols.NUMBER) return expr.value;
+    if (expr.type === symbols.STRING || expr.type === symbols.NUMBER || expr.type === symbols.BOOLEAN) return expr.value;
 
     // Identifiers will be a function reference or a variable
     if (expr.type === symbols.IDENTIFIER) {
@@ -29,8 +29,16 @@ const evaluateExpr = (scope, expr) => {
 };
 
 const evaluateFunctionExpr = (scope, expr) => {
-  const indentifierToken = expr[0];
+  // Evaluate empty block
+  if (Array.isArray(expr) && expr.length == 0) return;
 
+  // Evaluate a block
+  if (Array.isArray(expr[0])) {
+    return expr.reduce((acc, subExpr) => evaluateExpr(scope, subExpr), 0);
+  }
+
+  // The rest of the expressions are based on identifiers
+  const indentifierToken = expr[0];
   if (indentifierToken.type !== symbols.IDENTIFIER) {
     throw new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`);
   }
@@ -57,6 +65,16 @@ const evaluateFunctionExpr = (scope, expr) => {
     }
     scope.variables[name] = value;
     return value;
+  }
+
+  // Conditional call
+  if (indentifierToken.value === 'if') {
+    if (expr.length < 4) {
+      throw new Error(`Conditional expressions require 3 arguments. Got ${expr.length} at expression ${JSON.stringify(expr)}`);
+    }
+    const conditionResult = evaluateExpr(scope, expr[1]);
+    if (conditionResult) return evaluateExpr(scope, expr[2]);
+    return evaluateExpr(scope, expr[3]);
   }
 
   // Run a standard language function
@@ -89,7 +107,7 @@ const evaluateFunctionExpr = (scope, expr) => {
     return result;
   }
 
-  // Evaluate as a single expression
+  // Try and evaluate as a single expression
   if (Array.isArray(expr)) return evaluateExpr(scope, expr[0]);
 
   throw new Error(`Unrecognised expression: ${JSON.stringify(expr)}`);

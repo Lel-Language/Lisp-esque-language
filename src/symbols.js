@@ -9,6 +9,7 @@ module.exports = {
   // Primitives
   NUMBER: 'NUMBER',
   STRING: 'STRING',
+  BOOLEAN: 'BOOLEAN',
   IDENTIFIER: 'IDENTIFIER',
 
   // End of file

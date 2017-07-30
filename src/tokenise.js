@@ -44,10 +44,6 @@ module.exports = (inString) => {
         }
       }
     });
-
-    // if (i === chars.length - 1) {
-    //   tokens.push([EOF]);
-    // }
   }
 
   return tokens;
