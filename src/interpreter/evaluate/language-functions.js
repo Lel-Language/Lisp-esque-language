@@ -1,12 +1,3 @@
-const createScope = require('./create-scope');
-
-const scopedFunction = (bodyExpressions = [], expectedArguments = [], scope = {}) => ({
-  isFunction: true,
-  bodyExpressions,
-  expectedArguments,
-  scope
-});
-
 module.exports = {
   print: (scope, ...values) => {
     values.forEach(value => process.stdout.write(value.toString()));

@@ -1,0 +1,12 @@
+(let newline "\n")
+; Variables declared on the outermost scope can be accessed from anywhere in the program
+; provided they were declared first
+(let a 10)
+
+; However a function executes inside it's own scope
+(function overwrite-a ()
+  (let a 100)
+  a)
+
+(print a newline)
+(print (overwrite-a) newline)

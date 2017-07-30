@@ -1,0 +1,20 @@
+(let a 500)
+
+(function test (x)
+  (if (= x T)
+    (
+      (let a 10.2)
+      (let b 2)
+      (* a b)
+    )
+    (
+      (let a 20)
+      (let b 4)
+      (* a b)
+    )
+  )
+)
+
+(print (test T) "\n")
+(print (test F) "\n")
+(print a "\n")

@@ -5,10 +5,10 @@ const {
 
 // Ensure matching parentheses
 module.exports = (tokens) => {
-  const left = tokens.filter(token => token[1] === LPAREN).length;
-  const right = tokens.filter(token => token[1] === RPAREN).length;
+  const left = tokens.filter(token => token.type === LPAREN).length;
+  const right = tokens.filter(token => token.type === RPAREN).length;
   if (left !== right) {
-    throw new Error('Error. Unmatched parentheses.');
+    throw new Error('Unmatched parentheses.');
   }
   return tokens;
 };

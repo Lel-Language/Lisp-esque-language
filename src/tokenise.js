@@ -15,6 +15,17 @@ module.exports = (inString) => {
 
       // Test if it's a token match
       if (regex.test(check)) {
+        if (i === chars.length - 1) {
+          // Add the token to the list
+          if (label !== SKIP) {
+            tokens.push({
+              isToken: true,
+              type: label,
+              value: check
+            });
+          }
+          return true;
+        }
         // Peek ahead at the next charcters while it's still matching the same token
         let peekCheck = check;
         for (let j = i + 1; j < chars.length; j++) {

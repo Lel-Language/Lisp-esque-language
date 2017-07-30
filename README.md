@@ -1,14 +1,21 @@
 # Lisp-esque language (Lel)
 
-Lel is a lisp like programming language. It is not mean for practical purposes, but more as a tool to learn how to write a programming language.
+Lel is a lisp like programming language. It is not meant for practical purposes, but more as a tool to learn how to write a programming language.
 
 ## Language features
 
-- 
+- Primitive types:
+  - Number
+  - String
+  - Boolean
+  - Function
+- Lexical scoping of functions and variables
+- Functions form closures
+- Conditionals
 
-## Parser
+## Tokeniser and Parser
 
-The lel parser takes a basic S-expression based language in and produces an AST representing the program. For example:
+The lel tokeniser and parser are both written in javascript, as is the interpreter.
 
 ```lisp
 (let theAnswer
