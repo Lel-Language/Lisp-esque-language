@@ -1,3 +1,6 @@
 ; Negative numbers can only be declared by evaluating 0 minus number
 (let a (- 0 10.3))
 (print a)
+
+
+(let b -10)

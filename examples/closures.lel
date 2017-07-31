@@ -1,0 +1,8 @@
+(function create-adder (x)
+  (function new-adder (y) (+ x y)))
+
+(let add-five (create-adder 5))
+(let add-ten (create-adder 10))
+
+(print (call add-five 2) "\n")
+(print (call add-ten 2) "\n")

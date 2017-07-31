@@ -1,3 +1,4 @@
+const createToken = require('./create-token');
 const patterns = require('./patterns');
 const { SKIP, EOF } = require('./symbols');
 
@@ -18,11 +19,7 @@ module.exports = (inString) => {
         if (i === chars.length - 1) {
           // Add the token to the list
           if (label !== SKIP) {
-            tokens.push({
-              isToken: true,
-              type: label,
-              value: check
-            });
+            tokens.push(createToken(label, check));
           }
           return true;
         }
@@ -41,11 +38,7 @@ module.exports = (inString) => {
 
             // Add the token to the list
             if (label !== SKIP) {
-              tokens.push({
-                isToken: true,
-                type: label,
-                value: check
-              });
+              tokens.push(createToken(label, check));
             }
             // Reset the check string
             check = '';

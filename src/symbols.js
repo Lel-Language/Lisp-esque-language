@@ -12,6 +12,9 @@ module.exports = {
   BOOLEAN: 'BOOLEAN',
   IDENTIFIER: 'IDENTIFIER',
 
-  // End of file
-  EOF: 'EOF'
+  // Used internally for passing functions
+  FUNCTION_REFERENCE: 'FUNCTION_REFERENCE',
+
+  // Used internally for describing lists
+  LIST: 'LIST'
 };

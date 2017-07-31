@@ -2,9 +2,6 @@ module.exports = {
   print: (scope, ...values) => {
     values.forEach(value => process.stdout.write(value.toString()));
   },
-  list: (scope, ...items) => {
-    return items;
-  },
   return: (scope, value) => {
     return value;
   },
@@ -17,8 +14,8 @@ module.exports = {
   '/': (scope, x, y) => {
     return x / y;
   },
-  '*': (scope, x, y) => {
-    return x * y;
+  '*': (scope, ...numbers) => {
+    return numbers.reduce((acc, cur) => acc * cur, 1);
   },
   '=': (scope, x, y) => {
     return x === y;

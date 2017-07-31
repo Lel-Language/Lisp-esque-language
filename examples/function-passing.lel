@@ -1,0 +1,16 @@
+; Normal function definition
+(function test (x)
+  (+ x 1))
+
+; Evaluating this function in a regular way
+(print (test 41) "\n")
+
+; Function references can be stored in variables to be passed around
+(let stored-test test)
+
+; To call a function by reference, use call
+(print (call stored-test 41) "\n")
+
+; Call can also take a stored list of arguments
+(let test-args (list 41))
+(print (call stored-test test-args) "\n")

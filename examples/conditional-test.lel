@@ -4,7 +4,4 @@
      (print-times message (- times 1)))
     ((print "done!\n"))))
 
-(function square (x) (* x x))
-
-(print-times "hello " (square 3))
-
+(print-times "hello " 3)
