@@ -1,8 +1,12 @@
 const symbols = require('../../../symbols');
+const createLambda = require('./lambda');
 
 module.exports = (evaluateExpr, callFunction, scope, expr) => {
+  const fRefIsArray = Array.isArray(expr[1]);
+  const fRefIsIndentifier = expr[1].isToken && expr[1].type === symbols.IDENTIFIER;
+
   let fReference;
-  if (expr[1] && expr[1].isToken && expr[1].type === symbols.IDENTIFIER) {
+  if (expr[1] && (fRefIsArray || fRefIsIndentifier)) {
     fReference = evaluateExpr(scope, expr[1]);
   } else {
     throw new Error(`${expr[1]} is not a valid function reference`);

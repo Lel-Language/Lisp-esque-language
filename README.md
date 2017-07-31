@@ -80,6 +80,32 @@ All functions are lexically scoped and form [closures](https://en.wikipedia.org/
 ;    20
 ```
 
+#### Lambdas
+
+A `Lambda` is a special kind of anonymous function that is not placed into scope when it's declared:
+
+```lisp
+(let anon-func
+  (lambda (x)
+    (* x x)))
+
+(call anon-func 5)
+
+; -> 25
+```
+
+They can also act like javascript's [Immediately-invoked function expressions](http://benalman.com/news/2010/11/immediately-invoked-function-expression/):
+
+```lisp
+(call
+  (lambda (x)
+    (let xs (* x x x))
+    (print x " cubed is " xs "\n"))
+  5)
+
+; -> 5 cubed is 125
+```
+
 #### Conditionals
 
 The `if` keyword is used for condition checking. `if` is a function which takes 3 arguments, a boolean expression, a true expression and a false expression. The true and false expressions can also be lists of expressions.

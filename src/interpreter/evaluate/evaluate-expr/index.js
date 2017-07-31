@@ -1,6 +1,7 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
 const createFunction = require('./create-function');
+const createLambda = require('./lambda');
 const letAssign = require('./let-assign');
 const ifStatement = require('./if-statement');
 const callByReference = require('./call-by-reference');
@@ -78,6 +79,7 @@ const evaluateFunctionExpr = (scope, expr) => {
 
   // Declare a function in the current scope
   if (indentifierToken.value === 'function') return createFunction(scope, expr);
+  if (indentifierToken.value === 'lambda') return createLambda(scope, expr);
 
   // Declare a named variable in the current scope
   if (indentifierToken.value === 'let') return letAssign(evaluateExpr, scope, expr);

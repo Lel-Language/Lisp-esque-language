@@ -1,0 +1,25 @@
+; Functions declared with the 'function' keyword will always be placed into scope by name
+; even if assigned directly to a variable
+
+(let hello-func-ref
+  (function hello (name)
+    (print "hello " name "\n")))
+
+; We can call hello-func-ref by reference, but hello is still placed into scope.
+(hello "Frank")
+
+; Lambdas declare anonymous functions that still have access to the declaration scope but are not
+; themselves placed into the scope
+
+(let anon-hello
+  (lambda (name)
+    (print "hello " name "\n")))
+
+(call anon-hello "anonymous")
+
+; Lambdas can also act as Imediately-invoked function expressions when call'd directly
+(call
+  (lambda (x)
+    (let xs (* x x x))
+    (print x " cubed is " xs "\n"))
+  5)
