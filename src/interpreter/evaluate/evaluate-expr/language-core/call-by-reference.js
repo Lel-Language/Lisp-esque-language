@@ -1,4 +1,4 @@
-const symbols = require('../../../symbols');
+const symbols = require('../../../../symbols');
 const createLambda = require('./lambda');
 const callFunction = require('./call-function');
 

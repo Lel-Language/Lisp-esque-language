@@ -1,18 +1,10 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
-const callFunction = require('./call-function');
-const createFunction = require('./create-function');
-const createLambda = require('./lambda');
-const letAssign = require('./let-assign');
-const mapList = require('./map-list');
-const ifStatement = require('./if-statement');
-const callByReference = require('./call-by-reference');
+const core = require('./language-core');
 const {
   findFunctionInScope,
   findVariableInScope
 } = require('./find-in-scope');
-const createScope = require('../create-scope');
-const languageFunctions = require('./language-functions');
 
 const evaluateExpr = (scope, expr) => {
   // List of expressions?
@@ -61,31 +53,18 @@ const evaluateFunctionExpr = (scope, expr) => {
   }
 
   // Declare a function in the current scope
-  if (indentifierToken.value === 'function') return createFunction(scope, expr);
-  if (indentifierToken.value === 'lambda') return createLambda(scope, expr);
-  if (indentifierToken.value === 'map') return mapList(evaluateExpr, scope, expr);
-
-  // Declare a named variable in the current scope
-  if (indentifierToken.value === 'let') return letAssign(evaluateExpr, scope, expr);
-
-  // Conditional
-  if (indentifierToken.value === 'if') return ifStatement(evaluateExpr, scope, expr);
-
-  // Call evaluates a function by reference
-  if (indentifierToken.value === 'call') return callByReference(evaluateExpr, scope, expr);
-
-  // List evaluation
-  if (indentifierToken.value === 'list') {
-    const evaluatedList = expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr))
-    return createToken(symbols.LIST, evaluatedList);
-  }
-
-  // Run a standard language function
-  if (indentifierToken.value in languageFunctions) {
+  if (indentifierToken.value === 'function') return core.createFunction(scope, expr);
+  if (indentifierToken.value === 'lambda') return core.createLambda(scope, expr);
+  if (indentifierToken.value === 'map') return core.mapList(evaluateExpr, scope, expr);
+  if (indentifierToken.value === 'let') return core.letAssign(evaluateExpr, scope, expr);
+  if (indentifierToken.value === 'if') return core.ifStatement(evaluateExpr, scope, expr);
+  if (indentifierToken.value === 'call') return core.callByReference(evaluateExpr, scope, expr);
+  if (indentifierToken.value === 'list') return core.createList(evaluateExpr, scope, expr);
+  if (indentifierToken.value in core.standard) {
     const args = expr
       .slice(1)
       .map(subExpr => evaluateExpr(scope, subExpr));
-    return languageFunctions[indentifierToken.value](scope, ...args);
+    return core.standard[indentifierToken.value](...args);
   }
 
   // Run a scoped function if one is found

@@ -1,5 +1,5 @@
-const symbols = require('../../../symbols');
-const createToken = require('../../../create-token');
+const symbols = require('../../../../symbols');
+const createToken = require('../../../../create-token');
 const callFunction = require('./call-function');
 // (map list function)
 

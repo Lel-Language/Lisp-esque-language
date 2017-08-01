@@ -1,4 +1,4 @@
-const symbols = require('../../../symbols');
+const symbols = require('../../../../symbols');
 
 module.exports = (evaluateExpr, scope, expr) => {
   if (expr[1].type !== symbols.IDENTIFIER) {

@@ -1,4 +1,4 @@
-const createScope = require('../create-scope');
+const createScope = require('../../create-scope');
 
 module.exports = (evaluateExpr, scope, args, functionDescriptor) => {
   // Every time the function runs it gets it's own scope, meaning variables set inside this function

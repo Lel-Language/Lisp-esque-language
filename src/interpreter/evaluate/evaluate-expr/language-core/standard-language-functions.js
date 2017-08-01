@@ -1,5 +1,5 @@
-const createToken = require('../../../create-token');
-const symbols = require('../../../symbols');
+const createToken = require('../../../../create-token');
+const symbols = require('../../../../symbols');
 
 const ZERO = createToken(symbols.NUMBER, 0);
 const ONE = createToken(symbols.NUMBER, 1);
@@ -15,17 +15,17 @@ const prettyString = (token) => {
 };
 
 module.exports = {
-  print: (scope, ...items) => {
+  print: (...items) => {
     const out = items
       .map(prettyString)
       .join('');
     process.stdout.write(out);
     return createToken(symbols.STRING, out);
   },
-  return: (scope, value) => {
+  return: (value) => {
     return value;
   },
-  concat: (scope, ...strings) => {
+  concat: (...strings) => {
     return strings.reduce(
       (acc, cur) =>
         createToken(symbols.STRING, acc.value + cur.value)
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   // String functions
-  '+': (scope, ...numbers) => {
+  '+': (...numbers) => {
     return numbers.reduce(
       (acc, cur) =>
         createToken(symbols.NUMBER, acc.value + cur.value)
@@ -42,13 +42,13 @@ module.exports = {
   },
 
   // Number functions
-  '-': (scope, x, y) => {
+  '-': (x, y) => {
     return createToken(symbols.NUMBER, x.value - y.value);
   },
-  '/': (scope, x, y) => {
+  '/': (x, y) => {
     return createToken(symbols.NUMBER, x.value / y.value);
   },
-  '*': (scope, ...numbers) => {
+  '*': (...numbers) => {
     return numbers.reduce(
       (acc, cur) =>
         createToken(symbols.NUMBER, acc.value * cur.value)
@@ -56,19 +56,19 @@ module.exports = {
   },
 
   // Boolean functions
-  '=': (scope, x, y) => {
+  '=': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value === y.value);
   },
-  '<': (scope, x, y) => {
+  '<': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value < y.value);
   },
-  '>': (scope, x, y) => {
+  '>': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value > y.value);
   },
-  '<=': (scope, x, y) => {
+  '<=': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value <= y.value);
   },
-  '>=': (scope, x, y) => {
+  '>=': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value >= y.value);
   },
 };

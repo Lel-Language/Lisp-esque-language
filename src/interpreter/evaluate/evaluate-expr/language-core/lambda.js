@@ -1,7 +1,7 @@
-const symbols = require('../../../symbols');
+const symbols = require('../../../../symbols');
 const scopedFunction = require('./create-function/scoped-function');
-const createScope = require('../create-scope');
-const createToken = require('../../../create-token');
+const createScope = require('../../create-scope');
+const createToken = require('../../../../create-token');
 
 module.exports = (scope, expr) => {
   const fName = 'lambda_function';
