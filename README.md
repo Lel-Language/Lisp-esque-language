@@ -132,6 +132,39 @@ And since `if` is a function, it always returns the evaluation of it's last stat
 ; -> I love Lel!
 ```
 
+#### Types
+
+Lel has 5 types:
+
+- Number `10.5`
+- String `"Hello"`
+- Boolean `T` or `F`
+- List `(2 4 6 8 10)`
+- Function `(lambda (x) (* 3 (* x x)))`
+
+##### Lists
+
+Lists hold groups of data similar to arrays. A variable holding a list can also be used as the arguments to a function.
+
+Lists are declared with the `list` keyword.
+
+```lisp
+(let primes-under-ten
+  (list 2 3 5 7))
+```
+
+Lists can be mapped over with the `map` keyword:
+
+```lisp
+(function multiply-by-index (item index)
+  (* item index))
+(print (map primes-under-ten multiply-by-index))
+
+; -> (0 3 10 21)
+```
+
+Note that mapping functions must have a two argument signature. `map` can also take an inline lambda function.
+
 ## Tokeniser and Parser
 
 The lel tokeniser and parser are both written in javascript, as is the interpreter.
