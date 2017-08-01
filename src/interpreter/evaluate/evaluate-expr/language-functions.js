@@ -5,20 +5,20 @@ const ZERO = createToken(symbols.NUMBER, 0);
 const ONE = createToken(symbols.NUMBER, 1);
 const EMPTY_STRING = createToken(symbols.STRING, '');
 
+const prettyString = (token) => {
+  if ([symbols.NUMBER, symbols.BOOLEAN, symbols.STRING].includes(token.type)) {
+    return token.value.toString();
+  } else if (token.type === symbols.LIST) {
+    return `(${token.value.map(prettyString).join(', ')})`;
+  }
+  return token.toString();
+};
+
 module.exports = {
   print: (scope, ...items) => {
-    const out = items.reduce((acc, item) => {
-      if (item.type === symbols.NUMBER || item.type === symbols.BOOLEAN || item.type === symbols.STRING) {
-        // Use the primitive
-        acc += item.value.toString();
-      } else if (item.type === symbols.LIST) {
-        // TODO: Implement pretty list
-        acc += item.toString();
-      } else {
-        acc += item.toString();
-      }
-      return acc;
-    }, '');
+    const out = items
+      .map(prettyString)
+      .join('');
     process.stdout.write(out);
     return createToken(symbols.STRING, out);
   },
