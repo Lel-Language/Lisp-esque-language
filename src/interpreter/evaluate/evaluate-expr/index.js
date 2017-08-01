@@ -37,11 +37,12 @@ const evaluateExpr = (scope, expr) => {
   if (Array.isArray(expr)) return evaluateFunctionExpr(scope, expr);
 
   if (expr.isToken) {
-    // Return the value of primitives directly
+    // Return the value of primitives directly in their tokenised form
     if (expr.type === symbols.STRING
         || expr.type === symbols.NUMBER
         || expr.type === symbols.BOOLEAN
-        || expr.type === symbols.list) return expr.value;
+        || expr.type === symbols.FUNCTION_REFERENCE
+        || expr.type === symbols.LIST) return expr;
 
     // Identifiers will be a function reference or a variable
     if (expr.type === symbols.IDENTIFIER) {

@@ -1,5 +1,5 @@
 (function create-adder (x)
-  (function new-adder (y) (+ x y)))
+  (lambda (y) (+ x y)))
 
 (let add-five (create-adder 5))
 (let add-ten (create-adder 10))
