@@ -1,7 +1,8 @@
 const symbols = require('../../../symbols');
 const createLambda = require('./lambda');
+const callFunction = require('./call-function');
 
-module.exports = (evaluateExpr, callFunction, scope, expr) => {
+module.exports = (evaluateExpr, scope, expr) => {
   const fRefIsArray = Array.isArray(expr[1]);
   const fRefIsIndentifier = expr[1].isToken && expr[1].type === symbols.IDENTIFIER;
 
@@ -29,7 +30,7 @@ module.exports = (evaluateExpr, callFunction, scope, expr) => {
         args = expr.slice(2).map(subExpr => evaluateExpr(scope, subExpr));
       }
 
-      return callFunction(scope, args, functionDescriptor);
+      return callFunction(evaluateExpr, scope, args, functionDescriptor);
     } else {
       throw new Error(`Argument list cannot be undefined for call (${functionDescriptor.name}). Expression ${expr}`);
     }

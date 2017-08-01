@@ -1,0 +1,16 @@
+(let nl "\n")
+
+; map should take a list and a function reference, and apply that function to every element in the list, returning a new list
+
+(let one-to-four (list 1 2 3 4))
+(function times-two (x i) (* x 2))
+(let sq (lambda (x i) (* x x)))
+
+; It should work with both list and function references
+(print "All references: " (map one-to-four times-two) nl)
+
+; Direct lists
+(print "Direct List: " (map (list 1 2 3 4) sq) nl)
+
+; And direct lambdas
+(print "Direct Lambda: " (map one-to-four (lambda (x i) (* x x x))) nl)

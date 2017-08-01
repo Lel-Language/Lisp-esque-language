@@ -1,8 +1,10 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
+const callFunction = require('./call-function');
 const createFunction = require('./create-function');
 const createLambda = require('./lambda');
 const letAssign = require('./let-assign');
+const mapList = require('./map-list');
 const ifStatement = require('./if-statement');
 const callByReference = require('./call-by-reference');
 const {
@@ -11,26 +13,6 @@ const {
 } = require('./find-in-scope');
 const createScope = require('../create-scope');
 const languageFunctions = require('./language-functions');
-
-const callFunction = (scope, args, functionDescriptor) => {
-  // Every time the function runs it gets it's own scope, meaning variables set inside this function
-  // will not persist across different calls.
-  const executionScope = createScope(functionDescriptor.scope);
-
-  if (args.length !== functionDescriptor.expectedArguments.length) {
-    throw new Error(`Expected ${functionDescriptor.expectedArguments.length} arguments for function ${functionDescriptor.name} but got ${args.legnth}`);
-  }
-
-  args.forEach((argument, i) => {
-    if (argument.isFunction) executionScope.functions[functionDescriptor.expectedArguments[i]] = argument;
-    else executionScope.variables[functionDescriptor.expectedArguments[i]] = argument;
-  });
-
-  const result = functionDescriptor.bodyExpressions.reduce((acc, fExpr, i) => {
-    return evaluateExpr(executionScope, fExpr)
-  }, 0);
-  return result;
-}
 
 const evaluateExpr = (scope, expr) => {
   // List of expressions?
@@ -81,6 +63,7 @@ const evaluateFunctionExpr = (scope, expr) => {
   // Declare a function in the current scope
   if (indentifierToken.value === 'function') return createFunction(scope, expr);
   if (indentifierToken.value === 'lambda') return createLambda(scope, expr);
+  if (indentifierToken.value === 'map') return mapList(evaluateExpr, scope, expr);
 
   // Declare a named variable in the current scope
   if (indentifierToken.value === 'let') return letAssign(evaluateExpr, scope, expr);
@@ -89,7 +72,7 @@ const evaluateFunctionExpr = (scope, expr) => {
   if (indentifierToken.value === 'if') return ifStatement(evaluateExpr, scope, expr);
 
   // Call evaluates a function by reference
-  if (indentifierToken.value === 'call') return callByReference(evaluateExpr, callFunction, scope, expr);
+  if (indentifierToken.value === 'call') return callByReference(evaluateExpr, scope, expr);
 
   // List evaluation
   if (indentifierToken.value === 'list') {
@@ -109,7 +92,7 @@ const evaluateFunctionExpr = (scope, expr) => {
   const scopedFunction = findFunctionInScope(scope, indentifierToken.value);
   if (scopedFunction) {
     const args = expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr));
-    return callFunction(scope, args, scopedFunction);
+    return callFunction(evaluateExpr, scope, args, scopedFunction);
   }
 
   // Try and evaluate as a single expression
