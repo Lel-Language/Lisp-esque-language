@@ -1,0 +1,8 @@
+(let primes (list 2 3 5 7 11))
+
+(print "prime list: " primes "\n")
+(print "head: " (head primes) "\n")
+(print "tail: " (tail primes) "\n")
+(print "head of tail: " (head (tail primes)) "\n")
+(print "nth (3): " (nth primes 3) "\n")
+(print "length: " (length primes) "\n")

@@ -71,4 +71,38 @@ module.exports = {
   '>=': (x, y) => {
     return createToken(symbols.BOOLEAN, x.value >= y.value);
   },
+
+
+  // List functions
+  length: (list) => {
+    if (list.type === symbols.LIST) {
+      return createToken(symbols.NUMBER, list.value.length);
+    }
+    throw new Error(`length operates on LIST type. Got ${list.type}`);
+  },
+  head: (list) => {
+    if (list.type === symbols.LIST) {
+      const listHead = list.value.slice(0,1)[0];
+      return (typeof listHead !== 'undefined')
+        ? listHead
+        : createToken(symbols.LIST, []);
+    }
+    throw new Error(`head operates on LIST type. Got ${list.type}`);
+  },
+  tail: (list) => {
+    // Check is list
+    if (list.type === symbols.LIST) {
+      return createToken(symbols.LIST, list.value.slice(1));
+    }
+    throw new Error(`head operates on LIST type. Got ${list.type}`);
+  },
+  nth: (list, n) => {
+    if (list.type === symbols.LIST) {
+      if (n.value > 0 && n.value < list.value.length) {
+        return list.value.slice(n.value, n.value + 1)[0];
+      }
+      throw new Error(`nth: bad index ${n.value}. Given list has ${list.value.length} elements`);
+    }
+    throw new Error(`head operates on LIST type. Got ${list.type}`);
+  },
 };

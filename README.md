@@ -165,6 +165,38 @@ Lists can be mapped over with the `map` keyword:
 
 Note that mapping functions must have a two argument signature. `map` can also take an inline lambda function.
 
+You can get the first element in the list with `head`:
+
+```lisp
+(print (head (list 1 2 3)))
+
+; -> 1
+```
+
+And you can get everything else in the list with `tail`:
+
+```lisp
+(print (tail (list 1 2 3)))
+
+; -> (2, 3)
+```
+
+You can also grab the nth element of the list with `nth`. The list is zero indexed, just like an array.
+
+```lisp
+(print (nth (list 1 2 3) 1))
+
+; -> 2
+```
+
+Finally, you can get the length of the list with `length`:
+
+```lisp
+(print (length (list 1 2 3)))
+
+; -> 3
+```
+
 ## Tokeniser and Parser
 
 The lel tokeniser and parser are both written in javascript, as is the interpreter.
