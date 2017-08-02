@@ -1,0 +1,9 @@
+; concat joins either strings or lists
+
+(let hello-str "hello")
+(let concat-str (concat hello-str " world" "\n"))
+(print concat-str)
+
+(let list-one (list 1 2 3 4 5))
+(let list-two (list 6 7 8 9 10))
+(print (concat list-one list-two) "\n")

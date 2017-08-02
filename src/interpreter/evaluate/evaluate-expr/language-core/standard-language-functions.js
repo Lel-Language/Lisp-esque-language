@@ -25,12 +25,28 @@ module.exports = {
   return: (value) => {
     return value;
   },
-  concat: (...strings) => {
-    return strings.reduce(
-      (acc, cur) =>
-        createToken(symbols.STRING, acc.value + cur.value)
-      , EMPTY_STRING
-    );
+  concat: (...concatables) => {
+    if (concatables.length) {
+      const type = concatables[0].type;
+      const allSameType = concatables.filter(concatable => concatable.type !== type).length === 0;
+
+      if (type == symbols.STRING && allSameType) {
+        return concatables.reduce(
+          (acc, cur) =>
+            createToken(symbols.STRING, acc.value + cur.value)
+          , EMPTY_STRING
+        );
+      } else if (type === symbols.LIST && allSameType) {
+        const concatenatedLists = concatables.reduce((acc, list) =>
+          [...acc, ...list.value]
+          , []
+        );
+        return createToken(symbols.LIST, concatenatedLists);
+      } else {
+        throw new Error(`concat requires all arguments to be either STRING or LIST`);
+      }
+    }
+    return createToken(symbols.LIST, []);
   },
 
   // Number functions

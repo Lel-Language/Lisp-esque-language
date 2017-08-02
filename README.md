@@ -142,7 +142,57 @@ Lel has 5 types:
 - List `(2 4 6 8 10)`
 - Function `(lambda (x) (* 3 (* x x)))`
 
-##### Lists
+##### Number
+
+The number type is a signed floating point number. A negative number cannot be specified directly due to the simplicity of the Lel parser, but can be easily assigned with the `-` function:
+
+```lisp
+(let negative (- 0 10))
+(print (+ negative 5))
+
+; -> -5
+```
+
+##### String
+
+A string is a string of characters contained in double quotes:
+
+```lisp
+(print "hello")
+
+; -> hello
+```
+
+Strings can be combined with `concat`:
+
+```lisp
+(let hello-str "hello ")
+(print (concat hello-str "world"))
+
+; -> hello world
+```
+
+##### Boolean
+
+Boolean can be either true or false, and are represented with `T` and `F`:
+
+```lisp
+(let true-thing T)
+(let false-thing F)
+(print true-thing ", " false-thing)
+
+; -> true, false
+```
+
+Booleans are also the return type of comparison functions, for example:
+
+```lisp
+(print (> 2 1))
+
+; -> true
+```
+
+##### List
 
 Lists hold groups of data similar to arrays. A variable holding a list can also be used as the arguments to a function.
 
@@ -189,13 +239,46 @@ You can also grab the nth element of the list with `nth`. The list is zero index
 ; -> 2
 ```
 
-Finally, you can get the length of the list with `length`:
+You can get the number of elements in a list with `length`:
 
 ```lisp
 (print (length (list 1 2 3)))
 
 ; -> 3
 ```
+
+Finally, you can combine lists with `concat` just like strings:
+
+```lisp
+(let list-one
+  (list 1 2 3 4 5))
+(let list-two
+  (list 6 7 8 9 10))
+(print (concat list-one list-two))
+
+; -> (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+From these functions more operations are quite easily composable. For instance if you wanted the last element of a list, you could write a function like:
+
+```lisp
+(let planets (list "earth" "mars" "saturn" "jupiter"))
+
+(function last-element (l)
+  (let list-length
+    (length l))
+  (let final-index
+    (- list-length 1))
+  (nth l final-index))
+
+(print (last-element planets) "\n")
+
+; -> jupiter
+```
+
+##### Function
+
+A function is just a data type like the others in Lel, and thus can be stored in a variable, in a list, passed as an argument into a function, be returned from a function.
 
 ## Tokeniser and Parser
 
