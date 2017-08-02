@@ -1,0 +1,8 @@
+(let main-list
+  (list 0 1 2 3 4 5 6 7 8 9))
+
+(let sub-list
+  (sublist main-list 3 7))
+
+(print "main list: " main-list "\n")
+(print "sublist of 3 to 7: " sub-list "\n")

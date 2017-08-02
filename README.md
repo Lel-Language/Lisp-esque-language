@@ -243,6 +243,15 @@ And you can get everything else in the list with `tail`:
 ; -> (2, 3)
 ```
 
+You can get a list of all the elements from *start* to *end* indexes with `sublist`:
+
+```lisp
+(let main-list (list 0 1 2 3 4 5))
+(print (sublist main-list 1 4))
+
+; -> (1, 2, 3, 4)
+```
+
 You can also grab the nth element of the list with `nth`. The list is zero indexed, just like an array.
 
 ```lisp

@@ -120,7 +120,7 @@ module.exports = {
     if (list.type === symbols.LIST) {
       return createToken(symbols.LIST, list.value.slice(1));
     }
-    throw new Error(`head operates on LIST type. Got ${list.type}`);
+    throw new Error(`tail operates on LIST type. Got ${list.type}`);
   },
   nth: (list, n) => {
     if (list.type === symbols.LIST) {
@@ -129,6 +129,24 @@ module.exports = {
       }
       throw new Error(`nth: bad index ${n.value}. Given list has ${list.value.length} elements`);
     }
-    throw new Error(`head operates on LIST type. Got ${list.type}`);
+    throw new Error(`nth operates on LIST type. Got ${list.type}`);
   },
+  sublist: (list, start, end) => {
+    if (list.type === symbols.LIST) {
+      const listLength = list.value.length;
+      const s = start.value;
+      const e = end.value;
+
+      if (s > e) {
+        throw new Error(`start index cannot be greater than the end index for a sublist`);
+      }
+
+      if (s < 0 ||  e > listLength - 1) {
+        throw new Error(`sublist indexes out of range. Got start (${s}) end (${e}) for list of length ${listLength}`);
+      }
+
+      return createToken(symbols.LIST, list.value.slice(s, e+1));
+    }
+    throw new Error(`sublist operates on LIST type. Got ${list.type}`);
+  }
 };
