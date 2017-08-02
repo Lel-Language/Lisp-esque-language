@@ -33,22 +33,32 @@ module.exports = {
     );
   },
 
-  // String functions
+  // Number functions
   '+': (...numbers) => {
+    if (numbers.filter(n => n.type !== symbols.NUMBER).length !== 0) {
+      throw new Error(`+ only operates on NUMBER type`)
+    }
     return numbers.reduce(
       (acc, cur) =>
         createToken(symbols.NUMBER, acc.value + cur.value)
       , ZERO);
   },
-
-  // Number functions
   '-': (x, y) => {
+    if (x.type !== symbols.NUMBER || y.type !== symbols.NUMBER) {
+      throw new Error(`- only operates on NUMBER type`);
+    }
     return createToken(symbols.NUMBER, x.value - y.value);
   },
   '/': (x, y) => {
+    if (x.type !== symbols.NUMBER || y.type !== symbols.NUMBER) {
+      throw new Error(`/ only operates on NUMBER type`);
+    }
     return createToken(symbols.NUMBER, x.value / y.value);
   },
   '*': (...numbers) => {
+    if (numbers.filter(n => n.type !== symbols.NUMBER).length !== 0) {
+      throw new Error(`+ only operates on NUMBER type`)
+    }
     return numbers.reduce(
       (acc, cur) =>
         createToken(symbols.NUMBER, acc.value * cur.value)

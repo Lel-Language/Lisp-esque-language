@@ -41,16 +41,7 @@ const evaluateExpr = (scope, expr) => {
     // Run a scoped function if one is found
     const scopedFunction = findFunctionInScope(scope, indentifierToken.value);
     if (scopedFunction) {
-      let args;
-      if (expr[1].type === symbols.IDENTIFIER) {
-        const list = evaluateExpr(scope, expr[1]);
-        if (list.type !== symbols.LIST) {
-          throw new Error(`Expected LIST of arguments. Got ${list}`);
-        }
-        args = list.value;
-      } else {
-        args = expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr));
-      }
+      const args = expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr));
       return core.callFunction(evaluateExpr, scope, args, scopedFunction);
     }
 
