@@ -22,6 +22,6 @@ module.exports = (scope, expr) => {
   }
 
   const functionScope = createScope(scope);
-  scope.functions[fName] = scopedFunction(fName, fBody, expectedArguments, functionScope);
-  return createToken(symbols.FUNCTION_REFERENCE, scope.functions[fName]);
+  scope.variables[fName] = createToken(symbols.FUNCTION_REFERENCE, scopedFunction(fName, fBody, expectedArguments, functionScope));
+  return scope.variables[fName];
 };

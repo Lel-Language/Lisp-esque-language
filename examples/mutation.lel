@@ -1,0 +1,7 @@
+; Mutation should be avoided when possible, however sometimes it's the most pragmatic solution
+; to a problem.
+
+(let count 1)
+(print count "\n")
+(mutate count (+ count 1))
+(print count "\n")

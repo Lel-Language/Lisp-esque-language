@@ -7,10 +7,10 @@ module.exports = (evaluateExpr, scope, expr) => {
   const name = expr[1].value;
   const value = evaluateExpr(scope, expr[2]);
 
-  if (name in scope.variables) {
-    throw new Error(`Can't implicitly mutate previously assigned scoped variable '${name}'`);
+  if (!(name in scope.variables)) {
+    throw new Error(`No variable '${name}' to mutate in the local scope`);
   }
 
   scope.variables[name] = value;
   return value;
-}
+};

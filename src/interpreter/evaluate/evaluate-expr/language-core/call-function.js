@@ -9,13 +9,10 @@ module.exports = (evaluateExpr, scope, args, functionDescriptor) => {
     throw new Error(`Expected ${functionDescriptor.expectedArguments.length} arguments for function ${functionDescriptor.name} but got ${args.legnth}`);
   }
 
-  args.forEach((argument, i) => {
-    if (argument.isFunction) executionScope.functions[functionDescriptor.expectedArguments[i]] = argument;
-    else executionScope.variables[functionDescriptor.expectedArguments[i]] = argument;
-  });
+  // Place arguments into the execution scope
+  args.forEach((argument, i) =>
+    executionScope.variables[functionDescriptor.expectedArguments[i]] = argument
+  );
 
-  const result = functionDescriptor.bodyExpressions.reduce((acc, fExpr, i) => {
-    return evaluateExpr(executionScope, fExpr)
-  }, 0);
-  return result;
+  return functionDescriptor.bodyExpressions.reduce((acc, fExpr, i) => evaluateExpr(executionScope, fExpr), 0);
 };

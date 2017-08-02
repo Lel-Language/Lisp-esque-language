@@ -1,10 +1,8 @@
 const symbols = require('../../../../symbols');
 const createToken = require('../../../../create-token');
 const callFunction = require('./call-function');
-// (map list function)
 
 module.exports = (evaluateExpr, scope, expr) => {
-
   const list = evaluateExpr(scope, expr[1]);
   if (list.type !== symbols.LIST) {
     throw new Error(`Invalid list passed to map. Got ${expr}`);

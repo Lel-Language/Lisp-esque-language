@@ -20,7 +20,7 @@ The standard language implements a range of functionality.
 
 #### Variables
 
-Variables are declared with the `let` keyword, and are immutable.
+Variables are declared with the `let` keyword.
 
 ```lisp
 (let x 10)
@@ -30,6 +30,18 @@ They can of course be assigned as the result of a function:
 
 ```lisp
 (let x (+ 4 6))
+```
+
+A variable can be modified using the the `mutate` keyword, though this is generally not advisable. In most circumstances it is better to either assign a new variable or use recursion to emulate a stateful variable.
+
+```lisp
+(let count 1)
+(print count "\n")
+(mutate count (+ count 1))
+(print count "\n")
+
+; -> 1
+;    2
 ```
 
 #### Functions

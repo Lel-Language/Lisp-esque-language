@@ -1,10 +1,7 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
 const core = require('./language-core');
-const {
-  findFunctionInScope,
-  findVariableInScope
-} = require('./find-in-scope');
+const findInScope = require('./find-in-scope');
 
 const evaluateExpr = (scope, expr) => {
   // List of expressions?
@@ -24,13 +21,14 @@ const evaluateExpr = (scope, expr) => {
     }
 
     // Declare a function in the current scope
-    if (indentifierToken.value === 'function') return core.createFunction(scope, expr);
-    if (indentifierToken.value === 'lambda') return core.createLambda(scope, expr);
-    if (indentifierToken.value === 'map') return core.mapList(evaluateExpr, scope, expr);
-    if (indentifierToken.value === 'let') return core.letAssign(evaluateExpr, scope, expr);
-    if (indentifierToken.value === 'if') return core.ifStatement(evaluateExpr, scope, expr);
-    if (indentifierToken.value === 'call') return core.callByReference(evaluateExpr, scope, expr);
-    if (indentifierToken.value === 'list') return core.createList(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'function') return core.function(scope, expr);
+    if (indentifierToken.value === 'lambda') return core.lambda(scope, expr);
+    if (indentifierToken.value === 'map') return core.map(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'let') return core.let(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'mutate') return core.mutate(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'if') return core.if(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'call') return core.call(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'list') return core.list(evaluateExpr, scope, expr);
     if (indentifierToken.value in core.standard) {
       const args = expr
         .slice(1)
@@ -39,10 +37,10 @@ const evaluateExpr = (scope, expr) => {
     }
 
     // Run a scoped function if one is found
-    const scopedFunction = findFunctionInScope(scope, indentifierToken.value);
-    if (scopedFunction) {
+    const scopedFunction = findInScope(scope, indentifierToken.value);
+    if (scopedFunction && scopedFunction.type === symbols.FUNCTION_REFERENCE) {
       const args = expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr));
-      return core.callFunction(evaluateExpr, scope, args, scopedFunction);
+      return core.callFunction(evaluateExpr, scope, args, scopedFunction.value);
     }
 
     // Try and evaluate as a single expression
@@ -62,15 +60,9 @@ const evaluateExpr = (scope, expr) => {
 
     // Pass back variable value. Explicitly check null instead of other
     // falsey values that might really be contained in the variable
-    const variableInScope = findVariableInScope(scope, identifierType);
+    const variableInScope = findInScope(scope, identifierType);
     if (variableInScope !== null) return variableInScope;
-
-    // Pass back function descriptor
-    const functionInScope = findFunctionInScope(scope, identifierType)
-    if (functionInScope !== null) return createToken(symbols.FUNCTION_REFERENCE, functionInScope);
   }
-
-
 
   throw new Error(`Unrecognised expression: ${JSON.stringify(expr)}`);
 };
