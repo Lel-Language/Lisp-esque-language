@@ -7,6 +7,6 @@ module.exports = [
   [/^\)$/, symbols.RPAREN],
   [/^\-?[0-9]+\.?[0-9]*$/, symbols.NUMBER],
   [/^\"[^\n\"]*\"$/, symbols.STRING],
-  [/^(T|F)$/, symbols.BOOLEAN],
+  [/^\#(true|false)$/, symbols.BOOLEAN],
   [/^[a-zA-Z\+\-\/\*\_\>\<=]*$/, symbols.IDENTIFIER],
 ];

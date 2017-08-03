@@ -1,7 +1,7 @@
 (let a 500)
 
 (function test (x)
-  (if (= x T)
+  (if (= x #true)
     (
       (let a 10.2)
       (let b 2)
@@ -15,6 +15,6 @@
   )
 )
 
-(print (test T) "\n")
-(print (test F) "\n")
+(print (test #true) "\n")
+(print (test #false) "\n")
 (print a "\n")

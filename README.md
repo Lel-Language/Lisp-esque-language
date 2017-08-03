@@ -9,10 +9,13 @@ Lel is a lisp like programming language. It is not meant for practical purposes,
   - String
   - Boolean
   - Function
+  - List
 - Lexical scoping of functions and variables
 - Functions form closures
 - Call by reference for functions
 - Conditionals
+- List mapipulation
+
 
 ### Keywords
 
@@ -150,7 +153,7 @@ Lel has 5 types:
 
 - Number `10.5`
 - String `"Hello"`
-- Boolean `T` or `F`
+- Boolean `#true` or `#false`
 - List `(2 4 6 8 10)`
 - Function `(lambda (x) (* 3 (* x x)))`
 
@@ -186,11 +189,11 @@ Strings can be combined with `concat`:
 
 ##### Boolean
 
-Boolean can be either true or false, and are represented with `T` and `F`:
+Boolean can be either true or false, and are represented with `#true` and `#false`:
 
 ```lisp
-(let true-thing T)
-(let false-thing F)
+(let true-thing #true)
+(let false-thing #false)
 (print true-thing ", " false-thing)
 
 ; -> true, false
@@ -301,44 +304,10 @@ From these functions more operations are quite easily composable. For instance i
 
 A function is just a data type like the others in Lel, and thus can be stored in a variable, in a list, passed as an argument into a function, be returned from a function.
 
-## Tokeniser and Parser
+## Tokenisation, Parsing, and Evaluation
 
-The lel tokeniser and parser are both written in javascript, as is the interpreter.
+The lel tokeniser and parser are both written in javascript from scratch. The tokeniser recognises just 8 tokens: numbers, strings, booleans, left and right parentheses, comments and whitespace, and identifiers.
 
-```lisp
-(let theAnswer
-  (+ 18
-    (* 12 2)))
+The parser transforms the stream of tokens into an AST (abstract syntax tree) which describes those tokens in terms of the semantics of S-expressions. Every '(' signifies the start of a new branch in the tree and every matching ')' signifies the end of that branch.
 
-(print
-  "Life the universe and everything = " theAnswer "\n")
-```
-
-becomes
-
-```javascript
-[
-  [
-    { isToken: true, type: 'IDENTIFIER', value: 'let' },
-    { isToken: true, type: 'IDENTIFIER', value: 'theAnswer' },
-    [
-      { isToken: true, type: 'IDENTIFIER', value: '+' },
-      { isToken: true, type: 'NUMBER', value: 18 },
-      [
-        { isToken: true, type: 'IDENTIFIER', value: '*' },
-        { isToken: true, type: 'NUMBER', value: 12 },
-        { isToken: true, type: 'NUMBER', value: 2 }
-      ]
-    ]
-  ],
-  [
-    { isToken: true, type: 'IDENTIFIER', value: 'print' },
-    { isToken: true, type: 'STRING', value: 'Life the universe and everything = ' },
-    { isToken: true, type: 'IDENTIFIER', value: 'theAnswer' },
-    { isToken: true, type: 'STRING', value: '\n' }
-  ]
-]
-```
-
-Which evaluates to: `Life the universe and everything = 42`.
-
+The interpreter evaluates the AST. Evaluation is a recursive process where each branch of the tree is an "expression", and is handed to a function called `evaluateExpr`. Sub expressions inside the expression are then evaluated by `evaluateExpr` until the result returns a primitive value of the language.
