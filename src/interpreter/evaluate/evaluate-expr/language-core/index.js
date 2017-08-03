@@ -6,6 +6,7 @@ module.exports = {
   list: require('./list'),
   map: require('./map-list'),
   call: require('./call-by-reference'),
+  apply: require('./apply'),
   mutate: require('./mutate'),
 
   callFunction: require('./call-function'),

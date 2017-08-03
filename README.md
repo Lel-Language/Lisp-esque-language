@@ -95,6 +95,22 @@ All functions are lexically scoped and form [closures](https://en.wikipedia.org/
 ;    20
 ```
 
+#### Apply
+
+Apply is like call except the arguments are provided as a List, or a reference to a list:
+
+```lisp
+(function say-hello (name)
+  (print "hello " name "!"))
+
+(let args (list "Francis"))
+(print (say-hello args))
+(print (say-hello (list "Mr. Stokes")))
+
+; -> "hello Francis!"
+;    "hello Mr. Stokes!"
+```
+
 #### Lambdas
 
 A `Lambda` is a special kind of anonymous function that is not placed into scope when it's declared:

@@ -28,6 +28,7 @@ const evaluateExpr = (scope, expr) => {
     if (indentifierToken.value === 'mutate') return core.mutate(evaluateExpr, scope, expr);
     if (indentifierToken.value === 'if') return core.if(evaluateExpr, scope, expr);
     if (indentifierToken.value === 'call') return core.call(evaluateExpr, scope, expr);
+    if (indentifierToken.value === 'apply') return core.apply(evaluateExpr, scope, expr);
     if (indentifierToken.value === 'list') return core.list(evaluateExpr, scope, expr);
     if (indentifierToken.value in core.standard) {
       const args = expr

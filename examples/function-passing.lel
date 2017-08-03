@@ -3,10 +3,16 @@
   (+ x 1))
 
 ; Evaluating this function in a regular way
-(print (test 41) "\n")
+(print "Regular call: " (test 40) "\n")
 
 ; Function references can be stored in variables to be passed around
 (let stored-test test)
 
 ; To call a function by reference, use call
-(print (call stored-test 41) "\n")
+(print "Call: " (call stored-test 41) "\n")
+
+; to call a function with a list containing arguments, use apply
+(let args (list 42))
+(print "Apply: " (apply stored-test args) "\n")
+
+(print "Apply with direct list: " (apply stored-test (list 43)) "\n")
