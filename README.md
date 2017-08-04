@@ -104,8 +104,8 @@ Apply is like call except the arguments are provided as a List, or a reference t
   (print "hello " name "!"))
 
 (let args (list "Francis"))
-(print (say-hello args))
-(print (say-hello (list "Mr. Stokes")))
+(print (apply say-hello args))
+(print (apply say-hello (list "Mr. Stokes")))
 
 ; -> "hello Francis!"
 ;    "hello Mr. Stokes!"
