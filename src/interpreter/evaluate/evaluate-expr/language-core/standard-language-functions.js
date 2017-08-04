@@ -48,6 +48,17 @@ module.exports = {
     }
     return createToken(symbols.LIST, []);
   },
+  split: (string) => {
+    if (string !== symbols.STRING) {
+      // Error
+    }
+    return createToken(
+      symbols.LIST,
+      string.value
+        .split('')
+        .map(char => createToken(symbols.STRING, char))
+    );
+  },
 
   // Number functions
   '+': (...numbers) => {
@@ -100,6 +111,17 @@ module.exports = {
 
 
   // List functions
+  join: (list) => {
+    if (list !== symbols.LIST) {
+      // Error
+    }
+    return createToken(
+      symbols.STRING,
+      list.value
+        .map(listItem => listItem.value)
+        .join('')
+    );
+  },
   length: (list) => {
     if (list.type === symbols.LIST) {
       return createToken(symbols.NUMBER, list.value.length);

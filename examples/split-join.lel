@@ -1,0 +1,5 @@
+(let split-str (split "hello"))
+(print "split: " split-str "\n")
+
+(let joined-list (join split-str))
+(print "join: " joined-list "\n")

@@ -4,4 +4,4 @@
      (print-times message (- times 1)))
     ((print "done!\n"))))
 
-(print-times "hello " 3)
+(print-times "hello " 10)

@@ -4,11 +4,28 @@ const core = require('./language-core');
 const findInScope = require('./find-in-scope');
 
 const evaluateExpr = (scope, expr) => {
+  // Return the value of primitives directly in their tokenised form
+  if (expr.type === symbols.STRING
+      || expr.type === symbols.NUMBER
+      || expr.type === symbols.BOOLEAN
+      || expr.type === symbols.FUNCTION_REFERENCE
+      || expr.type === symbols.LIST) return expr;
+
+  // Identifiers will be a function reference or a variable
+  if (expr.type === symbols.IDENTIFIER) {
+    const identifierType = expr.value;
+
+    // Pass back variable value. Explicitly check null instead of other
+    // falsey values that might really be contained in the variable
+    const variableInScope = findInScope(scope, identifierType);
+    if (variableInScope !== null) return variableInScope;
+  }
+
+  // Evaluate empty block
+  if (Array.isArray(expr) && expr.length == 0) return;
+
   // List of expressions?
   if (Array.isArray(expr)) {
-    // Evaluate empty block
-    if (Array.isArray(expr) && expr.length == 0) return;
-
     // Evaluate a block
     if (Array.isArray(expr[0])) {
       return expr.reduce((acc, subExpr) => evaluateExpr(scope, subExpr), 0);
@@ -48,22 +65,6 @@ const evaluateExpr = (scope, expr) => {
     return evaluateExpr(scope, expr[0]);
   }
 
-  // Return the value of primitives directly in their tokenised form
-  if (expr.type === symbols.STRING
-      || expr.type === symbols.NUMBER
-      || expr.type === symbols.BOOLEAN
-      || expr.type === symbols.FUNCTION_REFERENCE
-      || expr.type === symbols.LIST) return expr;
-
-  // Identifiers will be a function reference or a variable
-  if (expr.type === symbols.IDENTIFIER) {
-    const identifierType = expr.value;
-
-    // Pass back variable value. Explicitly check null instead of other
-    // falsey values that might really be contained in the variable
-    const variableInScope = findInScope(scope, identifierType);
-    if (variableInScope !== null) return variableInScope;
-  }
 
   throw new Error(`Unrecognised expression: ${JSON.stringify(expr)}`);
 };
