@@ -1,6 +1,8 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
 const core = require('./language-core');
+const callFunction = require('./language-core/call-function');
+const standard = require('./language-core/standard-language-functions');
 const findInScope = require('./find-in-scope');
 const {mapSeries} = require('bluebird');
 
@@ -41,64 +43,16 @@ const evaluateExpr = (scope, expr) =>
         throw new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`);
       }
 
-      // Declare a function in the current scope
-      if (indentifierToken.value === 'function') {
-        return core.function(scope, expr)
-          .then(resolve);
+      // Core language functions
+      if (indentifierToken.value in core) {
+        return core[indentifierToken.value](evaluateExpr, scope, expr).then(resolve);
       }
 
-      if (indentifierToken.value === 'lambda') {
-        return core.lambda(scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'map') {
-        return core.map(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'let') {
-        return core.let(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'mutate') {
-        return core.mutate(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'if') {
-        return core.if(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'call') {
-        return core.call(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'apply') {
-        return core.apply(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'list') {
-        return core.list(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value === 'import') {
-        return core.import(evaluateExpr, scope, expr)
-          .then(resolve);
-      }
-
-      if (indentifierToken.value in core.standard) {
+      // Standard languages functions that manipulate primitives
+      if (indentifierToken.value in standard) {
         return Promise
           .all(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
-          .then(args => {
-            core.standard[indentifierToken.value](...args)
-              .then(resolve);
-          });
+          .then(args => standard[indentifierToken.value](...args).then(resolve));
       }
 
       // Run a scoped function if one is found
@@ -106,11 +60,7 @@ const evaluateExpr = (scope, expr) =>
       if (scopedFunction && scopedFunction.type === symbols.FUNCTION_REFERENCE) {
         return Promise
           .all(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
-          .then(args => {
-            core
-              .callFunction(evaluateExpr, scope, args, scopedFunction.value)
-              .then(resolve);
-          });
+          .then(args => callFunction(evaluateExpr, scope, args, scopedFunction.value).then(resolve));
       }
 
       // Try and evaluate as a single expression

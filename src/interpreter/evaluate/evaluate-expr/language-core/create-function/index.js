@@ -3,7 +3,7 @@ const scopedFunction = require('./scoped-function');
 const createScope = require('../../../create-scope');
 const createToken = require('../../../../../create-token');
 
-module.exports = (scope, expr) =>
+module.exports = (evaluateExpr, scope, expr) =>
   new Promise((resolve, reject) => {
     if (expr[1].type !== symbols.IDENTIFIER) {
       throw new Error(`Function name must be an IDENTIFER. Got ${expr[1].type} for ${expr[1].value}`);
@@ -16,7 +16,7 @@ module.exports = (scope, expr) =>
         }
         return token.value;
       });
-    
+
     const fBody = expr.slice(3);
     if (fBody.length < 1) {
       throw new Error(`Function body must contain at least one statement. Got none for function ${fName}`);

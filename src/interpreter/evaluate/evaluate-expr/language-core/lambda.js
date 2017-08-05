@@ -3,7 +3,7 @@ const scopedFunction = require('./create-function/scoped-function');
 const createScope = require('../../create-scope');
 const createToken = require('../../../../create-token');
 
-module.exports = (scope, expr) =>
+module.exports = (evaluateExpr, scope, expr) =>
   new Promise((resolve, reject) => {
     const fName = 'lambda_function';
     const expectedArguments = expr[1]
