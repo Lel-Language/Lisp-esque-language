@@ -11,15 +11,16 @@ Lel is a lisp like programming language. It is not meant for practical purposes,
   - Function
   - List
 - Lexical scoping of functions and variables
-- Functions form closures
-- Call by reference for functions
+  - Functions form closures
+  - Anonymous functions through lambdas
+  - Call and apply by reference for functions
 - Conditionals
 - List mapipulation
+- Stack safety
+  - Recursive functions do not lead to stack overflow exceptions even without tail calls
 
 
-### Keywords
-
-The standard language implements a range of functionality.
+### The Lel Language
 
 #### Variables
 
@@ -35,7 +36,7 @@ They can of course be assigned as the result of a function:
 (let x (+ 4 6))
 ```
 
-A variable can be modified using the the `mutate` keyword, though this is generally not advisable. In most circumstances it is better to either assign a new variable or use recursion to emulate a stateful variable.
+A variable can be modified using the the `mutate` keyword, though it should be avoided where possible.
 
 ```lisp
 (let count 1)
@@ -111,7 +112,7 @@ Apply is like call except the arguments are provided as a List, or a reference t
 ;    "hello Mr. Stokes!"
 ```
 
-#### Lambdas
+#### Lambda
 
 A `Lambda` is a special kind of anonymous function that is not placed into scope when it's declared:
 
@@ -326,4 +327,4 @@ The lel tokeniser and parser are both written in javascript from scratch. The to
 
 The parser transforms the stream of tokens into an AST (abstract syntax tree) which describes those tokens in terms of the semantics of S-expressions. Every '(' signifies the start of a new branch in the tree and every matching ')' signifies the end of that branch.
 
-The interpreter evaluates the AST. Evaluation is a recursive process where each branch of the tree is an "expression", and is handed to a function called `evaluateExpr`. Sub expressions inside the expression are then evaluated by `evaluateExpr` until the result returns a primitive value of the language.
+The interpreter evaluates the AST. Evaluation is a recursive process where each branch of the tree is an "expression", and is handed to a function called `evaluateExpr`. Sub expressions inside the expression are then evaluated by `evaluateExpr` until the result returns a primitive value of the language. This could easily lead to stack overflow exceptions when nesting of expressions is too high, so all expression evaluation is handled with asynchronous promises because promise evaluation does not work with the call stack.

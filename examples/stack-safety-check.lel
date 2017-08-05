@@ -1,0 +1,10 @@
+(function looper (times)
+  (if (> times 0)
+    (
+      (print times "\n")
+      (looper (- times 1))
+    )
+    (print "done\n")
+))
+
+(looper 30000)

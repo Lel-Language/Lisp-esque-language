@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Lisp-esque language",
   "main": "src/lel.js",
-  "dependencies": {},
+  "dependencies": {
+    "bluebird": "^3.5.0"
+  },
   "devDependencies": {
     "eslint": "^4.3.0"
   },
