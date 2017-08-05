@@ -1,6 +1,7 @@
 const symbols = require('../../../../symbols');
 const createLambda = require('./lambda');
 const callFunction = require('./call-function');
+const createToken = require('../../../../create-token');
 
 const performFunctionCall = (resolve, reject, evaluateExpr, scope, expr, functionDescriptor) =>
   (args) => {
@@ -20,7 +21,8 @@ const getFunctionArgs = (resolve, reject, evaluateExpr, scope, expr) =>
           .catch(console.error)
           .then(performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor));
       } else {
-        throw new Error(`Argument LIST cannot be undefined for apply (${functionDescriptor.name}). Expression ${expr}`);
+        const emptyList = createToken(symbols.LIST, []);
+        performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor)(emptyList);
       }
     } else {
       throw new Error(`First argument must be a FUNCTION_REFERENCE. Got ${expr[1].type} for expression ${expr}`);

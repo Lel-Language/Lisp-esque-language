@@ -12,7 +12,6 @@ module.exports = (evaluateExpr, scope, expr) =>
         if (name in scope.variables) {
           throw new Error(`Can't implicitly mutate previously assigned scoped variable '${name}'`);
         }
-
         scope.variables[name] = value;
         resolve(value);
       });

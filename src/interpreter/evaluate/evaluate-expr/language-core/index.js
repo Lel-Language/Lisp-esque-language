@@ -8,6 +8,7 @@ module.exports = {
   call: require('./call-by-reference'),
   apply: require('./apply'),
   mutate: require('./mutate'),
+  import: require('./import'),
 
   callFunction: require('./call-function'),
   standard: require('./standard-language-functions')

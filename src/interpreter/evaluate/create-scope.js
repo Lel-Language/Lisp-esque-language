@@ -1,4 +1,5 @@
-module.exports = (upperScope) => ({
+module.exports = (upperScope, basepath) => ({
   upperScope,
-  variables: {}
+  variables: {},
+  basepath
 });

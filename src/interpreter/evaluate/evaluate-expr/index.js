@@ -87,6 +87,11 @@ const evaluateExpr = (scope, expr) =>
           .then(resolve);
       }
 
+      if (indentifierToken.value === 'import') {
+        return core.import(evaluateExpr, scope, expr)
+          .then(resolve);
+      }
+
       if (indentifierToken.value in core.standard) {
         return Promise
           .all(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
@@ -109,7 +114,9 @@ const evaluateExpr = (scope, expr) =>
       }
 
       // Try and evaluate as a single expression
-      return evaluateExpr(scope, expr[0]).then(resolve.catch(console.error));
+      return evaluateExpr(scope, expr[0])
+        .catch(console.error)
+        .then(resolve);
     }
 
     throw new Error(`Unrecognised expression: ${JSON.stringify(expr)}`);

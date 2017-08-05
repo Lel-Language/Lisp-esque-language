@@ -1,0 +1,3 @@
+; Export a lambda function
+(function from-b ()
+  (print "Coming from b.lel!\n"))

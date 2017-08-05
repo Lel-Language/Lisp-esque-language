@@ -14,6 +14,9 @@ Lel is a lisp like programming language. It is not meant for practical purposes,
   - Functions form closures
   - Anonymous functions through lambdas
   - Call and apply by reference for functions
+- Modules
+  - Code can be split across files into isolated modules
+  - Loaded with `import` keyword
 - Conditionals
 - List mapipulation
 - Stack safety
@@ -320,6 +323,27 @@ From these functions more operations are quite easily composable. For instance i
 ##### Function
 
 A function is just a data type like the others in Lel, and thus can be stored in a variable, in a list, passed as an argument into a function, be returned from a function.
+
+
+#### Modules
+
+Modules can be imported from a file with `import`.
+
+```lisp
+; FILE_A.lel
+(lambda ()
+  (print "hello from FILE_A.lel!\n"))
+```
+
+```lisp
+; FILE_B.lel
+(let from-file-a (import "./FILE_A.lel"))
+(call from-file-a)
+
+; -> hello from FILE_A.lel!
+```
+
+Imported modules run in their own scope, but can recieve access via closures and dependency injection.
 
 ## Tokenisation, Parsing, and Evaluation
 

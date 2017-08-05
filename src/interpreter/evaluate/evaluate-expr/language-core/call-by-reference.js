@@ -11,7 +11,7 @@ const getFunctionArguments = (resolve, reject, evaluateExpr, scope, expr) =>
           .all(expr.slice(2).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
           .then(performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor));
       } else {
-        throw new Error(`Argument list cannot be undefined for call (${functionDescriptor.name}). Expression ${expr}`);
+        performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor)([]);
       }
     } else {
       throw new Error(`First argument must be a FUNCTION_REFERENCE. Got ${expr[1].type} for expression ${expr}`);
