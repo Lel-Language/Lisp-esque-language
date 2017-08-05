@@ -17,6 +17,8 @@ Lel is a lisp like programming language. It is not meant for practical purposes,
 - Modules
   - Code can be split across files into isolated modules
   - Loaded with `import` keyword
+- Extendable
+  - Allows extension of the language through js modules
 - Conditionals
 - List mapipulation
 - Stack safety

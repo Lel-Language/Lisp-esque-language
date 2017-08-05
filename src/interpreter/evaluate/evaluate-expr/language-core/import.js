@@ -1,6 +1,7 @@
 const path = require('path');
 const symbols = require('../../../../symbols');
 const createScope = require('../../create-scope');
+const findBasepath = require('../find-basepath');
 
 const validate = require('../../../validate');
 const tokenise = require('../../../../tokenise');
@@ -19,10 +20,6 @@ const interpreter = (filename) =>
       process.exit(1);
     });
 
-const findBasepath = (scope) => {
-  if (scope.upperScope) return findBasepath(scope.upperScope);
-  return scope.basepath;
-};
 
 module.exports = (evaluateExpr, scope, expr) =>
   new Promise((resolve, reject) => {
