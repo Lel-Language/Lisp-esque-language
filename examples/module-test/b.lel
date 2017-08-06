@@ -1,3 +1,7 @@
+; import a 3rd module
+(let c-func (import "./c.lel"))
+
 ; Export a lambda function
 (function from-b ()
-  (print "Coming from b.lel!\n"))
+  (print "Coming from b.lel!\n")
+  (call c-func))

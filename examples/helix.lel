@@ -1,0 +1,42 @@
+(function next (n current step lis)
+  (if (> n 0)
+    (next (- n 1) (+ current step) step (concat lis (list current)))
+    lis
+  )
+)
+
+(function left-pad (n str char)
+  (if (> n 0)
+    (left-pad (- n 1) (concat str char) char)
+    str
+  ))
+
+(function wait-clear (n)
+  (if (> n 0)
+    (wait-clear (- n 1))
+    (cls)
+  ))
+
+(let nums
+  (next 20 0 0.1 (list)))
+
+(function wave (t)
+  (lambda (x i)
+    (let size (+ 5 (* 2 (sin (/ t 10)))))
+    (let sin-x (* size (sin (+ t i))))
+    (let num-spaces (+ size sin-x))
+    (let spaces (left-pad num-spaces "" " "))
+    (print spaces "*\n")
+    ))
+
+(function animate (n)
+  (if (> n 0)
+    (
+      (map nums (wave ( / n 3)))
+      (wait-clear 500)
+      (animate (- n 1))
+    )
+    ()
+  ))
+
+(animate 1000)

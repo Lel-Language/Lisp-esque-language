@@ -1,0 +1,3 @@
+; Export a lambda function
+(function from-c ()
+  (print "Coming from c.lel!\n"))

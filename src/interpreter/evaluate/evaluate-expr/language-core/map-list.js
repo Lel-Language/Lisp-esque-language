@@ -2,6 +2,8 @@ const symbols = require('../../../../symbols');
 const createToken = require('../../../../create-token');
 const callFunction = require('./call-function');
 
+const {mapSeries} = require('bluebird');
+
 const getMappingFunction =
   (resolve, reject, evaluateExpr, scope, expr) =>
     (list) => {
@@ -21,14 +23,12 @@ const performMapping =
         throw new Error(`Invalid function passed to map. Got ${expr}`);
       }
 
-      const newList = list.value.map(
+      const mapPromises = list.value.map(
         (listElement, i) =>
-          callFunction(evaluateExpr, scope, [listElement, i], mappingFunction.value)
+          () => callFunction(evaluateExpr, scope, [listElement, createToken(symbols.NUMBER, i)], mappingFunction.value)
       );
-      Promise.all(newList)
-        .then(values => {
-          resolve(createToken(symbols.LIST, values))
-        });
+      mapSeries(mapPromises, (promiseGetter) => promiseGetter())
+        .then(values => resolve(createToken(symbols.LIST, values)));
     }
 
 module.exports = (evaluateExpr, scope, expr) =>

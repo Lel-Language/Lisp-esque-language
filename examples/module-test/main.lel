@@ -1,2 +1,4 @@
 (let b-func (import "./b.lel"))
+
+(print )
 (call b-func)

@@ -4,6 +4,7 @@ const symbols = require('../../../../symbols');
 const ZERO = createToken(symbols.NUMBER, 0);
 const ONE = createToken(symbols.NUMBER, 1);
 const EMPTY_STRING = createToken(symbols.STRING, '');
+const EMPTY_LIST = createToken(symbols.LIST);
 
 const prettyString = (token) => {
   if ([symbols.NUMBER, symbols.BOOLEAN, symbols.STRING].includes(token.type)) {
@@ -21,6 +22,10 @@ module.exports = {
       .join('');
     process.stdout.write(out);
     return Promise.resolve(createToken(symbols.STRING, out));
+  },
+  cls: () => {
+    process.stdout.write('\033c');
+    return Promise.resolve(EMPTY_LIST);
   },
   return: (value) => {
     return Promise.resolve(value);
@@ -90,6 +95,12 @@ module.exports = {
       (acc, cur) =>
         createToken(symbols.NUMBER, acc.value * cur.value)
       , ONE));
+  },
+  'sin': (number) => {
+    if (number.type !== symbols.NUMBER) {
+      throw new Error(`sin only operates on NUMBER type`);
+    }
+    return Promise.resolve(createToken(symbols.NUMBER, Math.sin(number.value)));
   },
 
   // Boolean functions
