@@ -8,6 +8,8 @@ const tokenise = require('../../../../tokenise');
 const parse = require('../../../../parse');
 const readLelFile = require('../../../read-lel');
 
+const lelPromise = require('../../../../util/lel-promise');
+
 // Can't import interpreter from here due to circular depenencies, so just put one together from
 // the modules. Have to use evaluateExpr directly, and build a scope for it to execute in.
 const interpreter = (filename) =>
@@ -22,10 +24,9 @@ const interpreter = (filename) =>
 
 
 module.exports = (evaluateExpr, scope, expr) =>
-  new Promise((resolve, reject) => {
+  lelPromise((resolve, reject) => {
     // Evaluate the filename
     evaluateExpr(scope, expr[1])
-      .catch(console.error)
       .then(filename => {
         if (filename.type === symbols.STRING) {
           const filepath = path.join(findBasepath(scope), filename.value);
@@ -38,7 +39,7 @@ module.exports = (evaluateExpr, scope, expr) =>
             })
             .catch(console.error);
         } else {
-          throw new Error(`Import path must resolve to a string. Got ${filename}`);
+          reject(new Error(`Import path must resolve to a string. Got ${filename}`));
         }
       });
   });

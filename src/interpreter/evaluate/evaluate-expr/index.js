@@ -4,10 +4,12 @@ const core = require('./language-core');
 const callFunction = require('./language-core/call-function');
 const standard = require('./language-core/standard-language-functions');
 const findInScope = require('./find-in-scope');
-const {mapSeries} = require('bluebird');
+
+const lelPromise = require('../../../util/lel-promise');
+const lelSeries = require('../../../util/lel-series');
 
 const evaluateExpr = (scope, expr) =>
-  new Promise((resolve) => {
+  lelPromise((resolve, reject) => {
     // Return the value of primitives directly in their tokenised form
     if (expr.type === symbols.STRING
         || expr.type === symbols.NUMBER
@@ -33,14 +35,13 @@ const evaluateExpr = (scope, expr) =>
       // Evaluate a block in series
       if (Array.isArray(expr[0])) {
         const blockEvaluators = expr.map(blockExpr => () => evaluateExpr(scope, blockExpr));
-        return mapSeries(blockEvaluators, (promiseGetter) => promiseGetter())
-          .then(values => resolve(values[values.length-1]));
+        return lelSeries(blockEvaluators).then(values => resolve(values[values.length-1]));
       }
 
       // The rest of the expressions are based on identifiers
       const indentifierToken = expr[0];
       if (indentifierToken.type !== symbols.IDENTIFIER) {
-        throw new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`);
+        reject(new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`));
       }
 
       // Core language functions
@@ -65,11 +66,10 @@ const evaluateExpr = (scope, expr) =>
 
       // Try and evaluate as a single expression
       return evaluateExpr(scope, expr[0])
-        .catch(console.error)
         .then(resolve);
     }
 
-    throw new Error(`Unrecognised expression: ${JSON.stringify(expr)}`);
+    reject(new Error(`Unrecognised expression: ${JSON.stringify(expr)}`));
   });
 
 module.exports = evaluateExpr;

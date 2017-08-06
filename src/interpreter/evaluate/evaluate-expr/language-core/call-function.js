@@ -1,15 +1,15 @@
 const createScope = require('../../create-scope');
-
-const {mapSeries} = require('bluebird');
+const lelPromise = require('../../../../util/lel-promise');
+const lelSeries = require('../../../../util/lel-series');
 
 module.exports = (evaluateExpr, scope, args, functionDescriptor) =>
-  new Promise((resolve, reject) => {
+  lelPromise((resolve, reject) => {
     // Every time the function runs it gets it's own scope, meaning variables set inside this function
     // will not persist across different calls.
     const executionScope = createScope(functionDescriptor.scope);
 
     if (args.length !== functionDescriptor.expectedArguments.length) {
-      throw new Error(`Expected ${functionDescriptor.expectedArguments.length} arguments for function ${functionDescriptor.name} but got ${args.legnth}`);
+      reject(new Error(`Expected ${functionDescriptor.expectedArguments.length} arguments for function ${functionDescriptor.name} but got ${args.legnth}`));
     }
 
     // Place arguments into the execution scope
@@ -19,8 +19,7 @@ module.exports = (evaluateExpr, scope, args, functionDescriptor) =>
 
     const bodyEvaluators = functionDescriptor
       .bodyExpressions
-      .map(fExpr => () => evaluateExpr(executionScope, fExpr).catch(console.error));
+      .map(fExpr => () => evaluateExpr(executionScope, fExpr));
 
-    mapSeries(bodyEvaluators, (promiseGetter) => promiseGetter())
-      .then(values => resolve(values[values.length-1]));
-  }).catch(console.error);
+    lelSeries(bodyEvaluators).then(values => resolve(values[values.length-1]));
+  });
