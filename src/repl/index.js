@@ -7,7 +7,7 @@ const rl = readline.createInterface({
 });
 
 module.exports = () => {
-  process.stdout.write('REPLel - Francis Stokes\n> ');
+  process.stdout.write('Lel REPL - Francis Stokes 2017\n> ');
   let expr = '';
 
   rl.on('line', (input) => {
