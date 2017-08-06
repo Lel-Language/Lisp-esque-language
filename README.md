@@ -2,6 +2,30 @@
 
 Lel is a lisp like programming language. It is not meant for practical purposes, but more as a tool to learn how to write a programming language.
 
+This project comes with a Lel interpreter for running Lel programs, and a REPL for executing Lel expressions in real time.
+
+## Running
+
+### Installation 
+
+```bash
+git clone https://github.com/francisrstokes/Lisp-esque-language.git
+cd Lisp-esque-language
+npm i
+```
+
+### REPL
+
+```bash
+node src
+```
+
+### Interpreter
+
+```bash
+node src examples/helix.lel
+```
+
 ## Language features
 
 - Primitive types:
