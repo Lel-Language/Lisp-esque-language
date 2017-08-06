@@ -41,7 +41,7 @@ const evaluateExpr = (scope, expr) =>
       // The rest of the expressions are based on identifiers
       const indentifierToken = expr[0];
       if (indentifierToken.type !== symbols.IDENTIFIER) {
-        reject(new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`));
+        return reject(new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`));
       }
 
       // Core language functions
@@ -69,7 +69,7 @@ const evaluateExpr = (scope, expr) =>
         .then(resolve);
     }
 
-    reject(new Error(`Unrecognised expression: ${JSON.stringify(expr)}`));
+    return reject(new Error(`Unrecognised expression: ${JSON.stringify(expr)}`));
   });
 
 module.exports = evaluateExpr;

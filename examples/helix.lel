@@ -33,7 +33,7 @@
   (if (> n 0)
     (
       (map nums (wave ( / n 3)))
-      (wait-clear 500)
+      (wait-clear 200)
       (animate (- n 1))
     )
     ()
