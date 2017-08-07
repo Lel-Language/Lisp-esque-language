@@ -16,6 +16,12 @@ const prettyString = (token) => {
 };
 
 module.exports = {
+  exit: (codeToken) => {
+    const code = (codeToken && codeToken.type === symbols.NUMBER)
+      ? codeToken.value
+      : 0;
+    process.exit(code);
+  },
   print: (...items) => {
     const out = items
       .map(prettyString)
