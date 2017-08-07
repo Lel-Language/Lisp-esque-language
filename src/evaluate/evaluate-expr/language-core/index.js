@@ -2,14 +2,14 @@ const extensions = require('../../../extensions');
 
 module.exports = Object.assign(
   {
-    if: require('./if-statement'),
-    let: require('./let-assign'),
-    function: require('./create-function'),
+    if: require('./if'),
+    let: require('./let'),
+    function: require('./function'),
     lambda: require('./lambda'),
     list: require('./list'),
-    map: require('./map-list'),
-    filter: require('./filter-list'),
-    call: require('./call-by-reference'),
+    map: require('./map'),
+    filter: require('./filter'),
+    call: require('./call'),
     apply: require('./apply'),
     mutate: require('./mutate'),
     import: require('./import')

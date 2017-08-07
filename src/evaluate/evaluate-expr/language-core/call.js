@@ -24,7 +24,7 @@ const performFunctionCall = (resolve, reject, evaluateExpr, scope, expr, functio
   (args) =>
     callFunction(evaluateExpr, scope, args, functionDescriptor).then(resolve);
 
-module.exports = (evaluateExpr, scope, expr) => 
+module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
     const fRefIsArray = Array.isArray(expr[1]);
     const fRefIsIndentifier = expr[1].isToken && expr[1].type === symbols.IDENTIFIER;
