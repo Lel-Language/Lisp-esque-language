@@ -1,21 +1,26 @@
 const symbols = require('./symbols');
 
-module.exports = [
-  // Whitespace
-  [/^[\s\n]+$/, symbols.SKIP],
+const number = [/^\-?[0-9]+\.?[0-9]*$/, symbols.NUMBER];
+const string = [/^\"[^\n\"]*\"$/, symbols.STRING];
+const boolean = [/^\#(true|false)$/, symbols.BOOLEAN];
+const whitespace = [/^[\s\n]+$/, symbols.SKIP];
+const comment = [/^;.+?\n$/, symbols.SKIP];
+const lparen = [/^\($/, symbols.LPAREN];
+const rparen = [/^\)$/, symbols.RPAREN];
+const identifier = [/^[a-zA-Z\+\-\/\*\%\_\>\<=]*$/, symbols.IDENTIFIER];
 
-  // Comments
-  [/^;.+?\n$/, symbols.SKIP],
-
-  // Parentheses
-  [/^\($/, symbols.LPAREN],
-  [/^\)$/, symbols.RPAREN],
-
-  // Primitives
-  [/^\-?[0-9]+\.?[0-9]*$/, symbols.NUMBER],
-  [/^\"[^\n\"]*\"$/, symbols.STRING],
-  [/^\#(true|false)$/, symbols.BOOLEAN],
-
-  // Identifier
-  [/^[a-zA-Z\+\-\/\*\_\>\<=]*$/, symbols.IDENTIFIER],
-];
+module.exports = {
+  ambiguous: [
+    [/^\-$/, number]
+  ],
+  tokens: [
+    whitespace,
+    comment,
+    lparen,
+    rparen,
+    number,
+    string,
+    boolean,
+    identifier
+  ]
+};

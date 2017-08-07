@@ -13,16 +13,20 @@ module.exports = () => {
   rl.on('line', (input) => {
     expr += input;
     const balance = parenthesesBalance(expr);
-    if (expr !== '' && balance === 0) {
-      repl(expr);
-      expr = '';
-    } else if (balance === -1) {
-      // Not enough closing parens, wait for the expression to be completed
-      process.stdout.write('> ');
-      expr += ' ';
+    if (expr !== '') {
+      if (balance === 0) {
+        repl(expr);
+        expr = '';
+      } else if (balance === -1) {
+        // Not enough closing parens, wait for the expression to be completed
+        process.stdout.write('> ');
+        expr += ' ';
+      } else {
+        console.error(`Too many ')'!`);
+        expr = '';
+        process.stdout.write('> ');
+      }
     } else {
-      console.error(`Too many ')'!`);
-      expr = '';
       process.stdout.write('> ');
     }
   });

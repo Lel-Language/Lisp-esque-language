@@ -11,11 +11,12 @@ const lelSeries = require('../../util/lel-series');
 const evaluateExpr = (scope, expr) =>
   lelPromise((resolve, reject) => {
     // Return the value of primitives directly in their tokenised form
-    if (expr.type === symbols.STRING
+    if (expr.isToken &&
+      (expr.type === symbols.STRING
         || expr.type === symbols.NUMBER
         || expr.type === symbols.BOOLEAN
         || expr.type === symbols.FUNCTION_REFERENCE
-        || expr.type === symbols.LIST) resolve(expr);
+        || expr.type === symbols.LIST)) resolve(expr);
 
     // Identifiers will be a function reference or a variable
     if (expr.type === symbols.IDENTIFIER) {

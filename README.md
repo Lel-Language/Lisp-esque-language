@@ -213,13 +213,23 @@ Lel has 5 types:
 
 ##### Number
 
-The number type is a signed floating point number. A negative number cannot be specified directly due to the simplicity of the Lel parser, but can be easily assigned with the `-` function:
+The number type is a signed 64-bit double, just like javascript.
 
 ```lisp
-(let negative (- 0 10))
-(print (+ negative 5))
+(let positive 5)
+(print positive)
+
+; -> 5
+
+(let negative -5)
+(print negative)
 
 ; -> -5
+
+(let floating 42.2)
+(print floating)
+
+; -> 42.2
 ```
 
 ##### String

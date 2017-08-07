@@ -10,8 +10,24 @@ module.exports = (inString) => {
 
   for (let i = 0; i < chars.length; i++) {
     check += chars[i];
+
+    // Perform an ambiguous check to prioritise a pattern match
+    if (check.length === 1 && i < chars.length - 1) {
+      patterns.ambiguous.some(ap => {
+        if (ap[0].test(check)) {
+          return ap.slice(1).some(tokenPattern => {
+            if (tokenPattern[0].test(check) || tokenPattern[0].test(check + chars[i + 1])) {
+              check += chars[++i];
+              return true;
+            }
+          });
+        }
+        return false;
+      });
+    }
+
     // Test for tokens until a sucessful one is found
-    const foundToken = patterns.some(tr => {
+    patterns.tokens.some(tr => {
       const [regex, label] = tr;
 
       // Test if it's a token match
