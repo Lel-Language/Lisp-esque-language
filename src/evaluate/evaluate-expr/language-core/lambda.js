@@ -1,5 +1,5 @@
 const symbols = require('../../../symbols');
-const scopedFunction = require('./create-function/scoped-function');
+const scopedFunction = require('./function/scoped-function');
 const createScope = require('../../create-scope');
 const createToken = require('../../../create-token');
 
