@@ -16,6 +16,12 @@ const prettyString = (token) => {
 };
 
 module.exports = {
+  exit: (codeToken) => {
+    const code = (codeToken && codeToken.type === symbols.NUMBER)
+      ? codeToken.value
+      : 0;
+    process.exit(code);
+  },
   print: (...items) => {
     const out = items
       .map(prettyString)
@@ -89,7 +95,7 @@ module.exports = {
   },
   '*': (...numbers) => {
     if (numbers.filter(n => n.type !== symbols.NUMBER).length !== 0) {
-      throw new Error(`+ only operates on NUMBER type`);
+      throw new Error(`* only operates on NUMBER type`);
     }
     return Promise.resolve(numbers.reduce(
       (acc, cur) =>
