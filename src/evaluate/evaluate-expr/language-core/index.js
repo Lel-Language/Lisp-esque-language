@@ -8,6 +8,7 @@ module.exports = Object.assign(
     lambda: require('./lambda'),
     list: require('./list'),
     map: require('./map-list'),
+    filter: require('./filter-list'),
     call: require('./call-by-reference'),
     apply: require('./apply'),
     mutate: require('./mutate'),

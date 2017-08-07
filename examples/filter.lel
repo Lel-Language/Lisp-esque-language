@@ -1,0 +1,8 @@
+(let numbers (list 1 2 3 4 5 6 7 8))
+
+(print "Original list: " numbers "\n")
+
+(let filtered
+  (filter numbers (lambda (x i) (> x 4))))
+
+(print "Filtered on (> x 4): " filtered "\n")
