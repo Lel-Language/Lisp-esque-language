@@ -8,22 +8,30 @@ This project comes with a Lel interpreter for running Lel programs, and a REPL f
 
 ### Installation 
 
+You can clone the repo.
+
 ```bash
 git clone https://github.com/francisrstokes/Lisp-esque-language.git
 cd Lisp-esque-language
 npm i
 ```
 
+Or install from npm
+
+```bash
+npm i -g lel-lang
+```
+
 ### REPL
 
 ```bash
-node src
+lel
 ```
 
 ### Interpreter
 
 ```bash
-node src examples/helix.lel
+lel examples/helix.lel
 ```
 
 ## Language features
