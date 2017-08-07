@@ -1,4 +1,4 @@
-const extensions = require('../../../../extensions');
+const extensions = require('../../../extensions');
 
 module.exports = Object.assign(
   {

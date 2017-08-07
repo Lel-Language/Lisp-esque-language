@@ -1,12 +1,12 @@
-const symbols = require('../../../symbols');
-const createToken = require('../../../create-token');
+const symbols = require('../../symbols');
+const createToken = require('../../create-token');
 const core = require('./language-core');
 const callFunction = require('./language-core/call-function');
 const standard = require('./language-core/standard-language-functions');
 const findInScope = require('./find-in-scope');
 
-const lelPromise = require('../../../util/lel-promise');
-const lelSeries = require('../../../util/lel-series');
+const lelPromise = require('../../util/lel-promise');
+const lelSeries = require('../../util/lel-series');
 
 const evaluateExpr = (scope, expr) =>
   lelPromise((resolve, reject) => {

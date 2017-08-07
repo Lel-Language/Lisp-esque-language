@@ -1,9 +1,9 @@
-const symbols = require('../../../../symbols');
-const createToken = require('../../../../create-token');
+const symbols = require('../../../symbols');
+const createToken = require('../../../create-token');
 const callFunction = require('./call-function');
 
-const lelPromise = require('../../../../util/lel-promise');
-const lelSeries = require('../../../../util/lel-series');
+const lelPromise = require('../../../util/lel-promise');
+const lelSeries = require('../../../util/lel-series');
 
 const getMappingFunction =
   (resolve, reject, evaluateExpr, scope, expr) =>

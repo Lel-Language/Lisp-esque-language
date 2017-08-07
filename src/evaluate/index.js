@@ -1,6 +1,6 @@
 const evaluateExpr = require('./evaluate-expr');
-const lelPromise = require('../../util/lel-promise');
-const lelSeries = require('../../util/lel-series');
+const lelPromise = require('../util/lel-promise');
+const lelSeries = require('../util/lel-series');
 
 module.exports = (ast, basepath = __dirname) => {
   const rootScope = require('./create-scope')(null, basepath);

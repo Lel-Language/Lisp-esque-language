@@ -1,4 +1,4 @@
-const lelPromise = require('../../../../util/lel-promise');
+const lelPromise = require('../../../util/lel-promise');
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {

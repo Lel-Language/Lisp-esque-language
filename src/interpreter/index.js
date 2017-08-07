@@ -3,7 +3,7 @@ const path = require('path');
 const validate = require('./validate');
 const tokenise = require('../tokenise');
 const parse = require('../parse');
-const evaluate = require('./evaluate');
+const evaluate = require('../evaluate');
 const readLelFile = require('./read-lel');
 
 module.exports =

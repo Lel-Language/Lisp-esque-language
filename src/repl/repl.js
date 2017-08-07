@@ -1,8 +1,8 @@
 const tokenise = require('../tokenise');
 const parse = require('../parse');
-const createScope = require('../interpreter/evaluate/create-scope');
-const evaluateExpr = require('../interpreter/evaluate/evaluate-expr');
-const {print} = require('../interpreter/evaluate/evaluate-expr/language-core/standard-language-functions');
+const createScope = require('../evaluate/create-scope');
+const evaluateExpr = require('../evaluate/evaluate-expr');
+const {print} = require('../evaluate/evaluate-expr/language-core/standard-language-functions');
 
 module.exports = () => {
   const rootScope = createScope(null, __dirname);

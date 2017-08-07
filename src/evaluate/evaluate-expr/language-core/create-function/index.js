@@ -1,8 +1,8 @@
-const symbols = require('../../../../../symbols');
+const symbols = require('../../../../symbols');
 const scopedFunction = require('./scoped-function');
 const createScope = require('../../../create-scope');
-const createToken = require('../../../../../create-token');
-const lelPromise = require('../../../../../util/lel-promise');
+const createToken = require('../../../../create-token');
+const lelPromise = require('../../../../util/lel-promise');
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {

@@ -1,6 +1,6 @@
 const {readFileSync} = require('fs');
 const path = require('path');
-const findBasepath = require('../interpreter/evaluate/evaluate-expr/find-basepath');
+const findBasepath = require('../evaluate/evaluate-expr/find-basepath');
 
 const symbols = require('../symbols');
 const createToken = require('../create-token');

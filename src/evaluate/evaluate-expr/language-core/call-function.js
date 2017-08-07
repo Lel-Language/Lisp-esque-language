@@ -1,6 +1,6 @@
 const createScope = require('../../create-scope');
-const lelPromise = require('../../../../util/lel-promise');
-const lelSeries = require('../../../../util/lel-series');
+const lelPromise = require('../../../util/lel-promise');
+const lelSeries = require('../../../util/lel-series');
 
 module.exports = (evaluateExpr, scope, args, functionDescriptor) =>
   lelPromise((resolve, reject) => {

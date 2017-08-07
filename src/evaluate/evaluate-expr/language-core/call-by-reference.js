@@ -1,7 +1,7 @@
-const symbols = require('../../../../symbols');
+const symbols = require('../../../symbols');
 const createLambda = require('./lambda');
 const callFunction = require('./call-function');
-const lelPromise = require('../../../../util/lel-promise');
+const lelPromise = require('../../../util/lel-promise');
 
 const getFunctionArguments = (resolve, reject, evaluateExpr, scope, expr) =>
   (fReference) => {

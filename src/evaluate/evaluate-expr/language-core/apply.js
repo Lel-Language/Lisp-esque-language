@@ -1,9 +1,9 @@
-const symbols = require('../../../../symbols');
+const symbols = require('../../../symbols');
 const createLambda = require('./lambda');
 const callFunction = require('./call-function');
-const createToken = require('../../../../create-token');
+const createToken = require('../../../create-token');
 
-const lelPromise = require('../../../../util/lel-promise');
+const lelPromise = require('../../../util/lel-promise');
 
 const performFunctionCall = (resolve, reject, evaluateExpr, scope, expr, functionDescriptor) =>
   (args) => {

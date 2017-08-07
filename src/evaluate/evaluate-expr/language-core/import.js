@@ -1,14 +1,14 @@
 const path = require('path');
-const symbols = require('../../../../symbols');
+const symbols = require('../../../symbols');
 const createScope = require('../../create-scope');
 const findBasepath = require('../find-basepath');
 
-const validate = require('../../../validate');
-const tokenise = require('../../../../tokenise');
-const parse = require('../../../../parse');
-const readLelFile = require('../../../read-lel');
+const validate = require('../../../interpreter/validate');
+const tokenise = require('../../../tokenise');
+const parse = require('../../../parse');
+const readLelFile = require('../../../interpreter/read-lel');
 
-const lelPromise = require('../../../../util/lel-promise');
+const lelPromise = require('../../../util/lel-promise');
 
 // Can't import interpreter from here due to circular depenencies, so just put one together from
 // the modules. Have to use evaluateExpr directly, and build a scope for it to execute in.

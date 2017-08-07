@@ -1,5 +1,5 @@
-const createToken = require('../../../../create-token');
-const symbols = require('../../../../symbols');
+const createToken = require('../../../create-token');
+const symbols = require('../../../symbols');
 
 const ZERO = createToken(symbols.NUMBER, 0);
 const ONE = createToken(symbols.NUMBER, 1);

@@ -1,6 +1,6 @@
-const symbols = require('../../../../symbols');
-const createToken = require('../../../../create-token');
-const lelPromise = require('../../../../util/lel-promise');
+const symbols = require('../../../symbols');
+const createToken = require('../../../create-token');
+const lelPromise = require('../../../util/lel-promise');
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
