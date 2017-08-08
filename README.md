@@ -282,6 +282,17 @@ Lists are declared with the `list` keyword.
   (list 2 3 5 7))
 ```
 
+In Lel there is some syntactic sugar for creating list ranges:
+
+```lisp
+(let ranged-list
+  (list 1 .. 10))
+
+; -> (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+Ranges can be ascending and descending.
+
 Lists can be mapped over with the `map` keyword:
 
 ```lisp

@@ -9,6 +9,7 @@ const boolTrue = ['true', symbols.BOOLEAN];
 const boolFalse = ['false', symbols.BOOLEAN];
 const lparen = ['(', symbols.LPAREN];
 const rparen = [')', symbols.RPAREN];
+const range = ['..', symbols.RANGE];
 
 module.exports = {
   ambiguous: [
@@ -18,7 +19,8 @@ module.exports = {
     boolTrue,
     boolFalse,
     lparen,
-    rparen
+    rparen,
+    range
   ],
   tokens: [
     whitespace,

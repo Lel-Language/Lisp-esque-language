@@ -2,6 +2,9 @@ module.exports = {
   // Whitespace skips
   SKIP: 'SKIP',
 
+  // List operator expanded in parser
+  RANGE: 'RANGE',
+
   // Expression start/end
   LPAREN: 'LPAREN',
   RPAREN: 'RPAREN',
