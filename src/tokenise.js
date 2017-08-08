@@ -11,6 +11,33 @@ module.exports = (inString) => {
   for (let i = 0; i < chars.length; i++) {
     check += chars[i];
 
+    // Check against exact patterns first
+    if (check.length === 1) {
+      const matchedExactPattern = patterns.exact.some(ep => {
+        const [exactStr, symbol] = ep;
+        if (i + exactStr.length <= chars.length) {
+          const exactCheck = check + chars.slice(i + 1, i + exactStr.length).join('');
+
+          if (exactCheck === exactStr) {
+            // Set the new i pointer
+            i += exactStr.length - 1;
+
+            // Add the token to the list
+            if (symbol !== SKIP) {
+              tokens.push(createToken(symbol, exactCheck));
+            }
+            // Reset the check string
+            check = '';
+            // Exit from the token search
+            return true;
+          }
+        }
+        return false;
+      });
+
+      if (matchedExactPattern) continue;
+    }
+
     // Perform an ambiguous check to prioritise a pattern match
     if (check.length === 1 && i < chars.length - 1) {
       patterns.ambiguous.some(ap => {

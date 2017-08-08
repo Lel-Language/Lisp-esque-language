@@ -253,11 +253,11 @@ Strings can be combined with `concat`:
 
 ##### Boolean
 
-Boolean can be either true or false, and are represented with `#true` and `#false`:
+Boolean can be either true or false, and are represented with the identifiers `true` and `false`:
 
 ```lisp
-(let true-thing #true)
-(let false-thing #false)
+(let true-thing true)
+(let false-thing false)
 (print true-thing ", " false-thing)
 
 ; -> true, false
