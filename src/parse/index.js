@@ -2,8 +2,6 @@ const symbols = require('../symbols');
 const createToken = require('../create-token');
 const cleanToken = require('./clean');
 
-const rangeOperator = require('./range-operator');
-
 let depthPointer = 0;
 const addTokenToExprTree = (ast, token) => {
   let level = ast;
@@ -36,12 +34,6 @@ module.exports = (_tokens) => {
       continue;
     } else if (token.type === symbols.RPAREN) {
       popExpr();
-      continue;
-    }
-
-    if (token.type === symbols.RANGE) {
-      rangeOperator(addTokenToExprTree, ast, tokens, i);
-      i++;
       continue;
     }
 

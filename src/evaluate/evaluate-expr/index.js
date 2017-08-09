@@ -12,7 +12,8 @@ const evaluateExpr = (scope, expr) =>
   lelPromise((resolve, reject) => {
     // Return the value of primitives directly in their tokenised form
     if (expr.isToken &&
-      (expr.type === symbols.STRING
+      (expr.type === symbols.RANGE
+        || expr.type === symbols.STRING
         || expr.type === symbols.NUMBER
         || expr.type === symbols.BOOLEAN
         || expr.type === symbols.FUNCTION_REFERENCE
