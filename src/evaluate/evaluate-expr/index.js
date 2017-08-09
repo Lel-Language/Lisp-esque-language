@@ -6,6 +6,7 @@ const standard = require('./language-core/standard-language-functions');
 const findInScope = require('./find-in-scope');
 
 const lelPromise = require('../../util/lel-promise');
+const lelPromiseAll = require('../../util/lel-promise-all');
 const lelSeries = require('../../util/lel-series');
 
 const evaluateExpr = (scope, expr) =>
@@ -53,22 +54,25 @@ const evaluateExpr = (scope, expr) =>
 
       // Standard languages functions that manipulate primitives
       if (indentifierToken.value in standard) {
-        return Promise
-          .all(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
-          .then(args => standard[indentifierToken.value](...args).then(resolve));
+        return lelPromiseAll(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr)))
+          .then(args =>
+            standard[indentifierToken.value](...args)
+              .then(resolve)
+          );
       }
 
       // Run a scoped function if one is found
       const scopedFunction = findInScope(scope, indentifierToken.value);
       if (scopedFunction && scopedFunction.type === symbols.FUNCTION_REFERENCE) {
-        return Promise
-          .all(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr).catch(console.error)))
-          .then(args => callFunction(evaluateExpr, scope, args, scopedFunction.value).then(resolve));
+        return lelPromiseAll(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr)))
+          .then(args =>
+            callFunction(evaluateExpr, scope, args, scopedFunction.value)
+              .then(resolve)
+          );
       }
 
       // Try and evaluate as a single expression
-      return evaluateExpr(scope, expr[0])
-        .then(resolve);
+      return evaluateExpr(scope, expr[0]).then(resolve);
     }
 
     return reject(new Error(`Unrecognised expression: ${JSON.stringify(expr)}`));

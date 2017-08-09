@@ -1,5 +1,6 @@
 const {mapSeries} = require('bluebird');
+const defaultErr = (err) => console.error(err.message);
 
-module.exports = (promiseFunctions) =>
+module.exports = (promiseFunctions, catchAllFunc = defaultErr) =>
   mapSeries(promiseFunctions, (promiseGetter) => promiseGetter())
-    .catch(console.error);
+    .catch(catchAllFunc);

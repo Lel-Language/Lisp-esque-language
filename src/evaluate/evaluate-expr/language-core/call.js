@@ -2,15 +2,14 @@ const symbols = require('../../../symbols');
 const createLambda = require('./lambda');
 const callFunction = require('./call-function');
 const lelPromise = require('../../../util/lel-promise');
+const lelPromiseAll = require('../../../util/lel-promise-all');
 
 const getFunctionArguments = (resolve, reject, evaluateExpr, scope, expr) =>
   (fReference) => {
     if (fReference && fReference.isToken && fReference.type === symbols.FUNCTION_REFERENCE) {
       const functionDescriptor = fReference.value;
       if (expr[2]) {
-        Promise
-          .all(expr.slice(2).map(subExpr => evaluateExpr(scope, subExpr)))
-          .catch(console.error)
+        lelPromiseAll(expr.slice(2).map(subExpr => evaluateExpr(scope, subExpr)))
           .then(performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor));
       } else {
         performFunctionCall(resolve, reject, evaluateExpr, scope, expr, functionDescriptor)([]);

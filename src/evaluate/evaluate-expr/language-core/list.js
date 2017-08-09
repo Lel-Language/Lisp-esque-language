@@ -1,6 +1,7 @@
 const symbols = require('../../../symbols');
 const createToken = require('../../../create-token');
 const lelPromise = require('../../../util/lel-promise');
+const lelPromiseAll = require('../../../util/lel-promise-all');
 
 const expandRanges = values => {
   const foundRange = values.some(value => value.type === symbols.RANGE);
@@ -32,13 +33,7 @@ const expandRanges = values => {
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
-    Promise
-      .all(
-        expr
-          .slice(1)
-          .map(subExpr => evaluateExpr(scope, subExpr))
-      )
+    lelPromiseAll(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr)))
       .then(expandRanges)
-      .then(resolve)
-      .catch(console.error);
+      .then(resolve);
   });
