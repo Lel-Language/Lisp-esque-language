@@ -10,7 +10,7 @@ const addTokenToExprTree = (ast, token) => {
     level = level[level.length - 1];
   }
   level.push(token);
-}
+};
 
 const popExpr = () => depthPointer--;
 const pushExpr = (ast) => {
@@ -40,4 +40,4 @@ module.exports = (_tokens) => {
     addTokenToExprTree(ast, token);
   }
   return ast;
-}
+};

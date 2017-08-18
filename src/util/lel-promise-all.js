@@ -6,4 +6,4 @@ module.exports = (promiseFuncs, catchAllFunc = defaultErr) => {
     then: (func) => p.then(func).catch(catchAllFunc),
     finally: (func) => p.finally(func).catch(catchAllFunc)
   };
-}
+};

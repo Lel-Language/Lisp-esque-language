@@ -17,9 +17,9 @@ module.exports = () => {
             console.log();
             print(result).then(r => {
               process.stdout.write('\n> ');
-            })
+            });
           });
       })
-      .catch(console.error)
-  }
-}
+      .catch(console.error);
+  };
+};

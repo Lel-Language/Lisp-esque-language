@@ -31,7 +31,7 @@ const evaluateExpr = (scope, expr) =>
     }
 
     // Evaluate empty block
-    if (Array.isArray(expr) && expr.length == 0) resolve(createToken(symbols.LIST, []));
+    if (Array.isArray(expr) && expr.length === 0) resolve(createToken(symbols.LIST, []));
 
     // List of expressions?
     if (Array.isArray(expr)) {
@@ -42,27 +42,27 @@ const evaluateExpr = (scope, expr) =>
       }
 
       // The rest of the expressions are based on identifiers
-      const indentifierToken = expr[0];
-      if (indentifierToken.type !== symbols.IDENTIFIER) {
+      const identifierToken = expr[0];
+      if (identifierToken.type !== symbols.IDENTIFIER) {
         return reject(new Error(`Expected IDENTIFIER symbol, got ${indentifierToken.type}\nExpr: ${JSON.stringify(expr)}`));
       }
 
       // Core language functions
-      if (indentifierToken.value in core) {
-        return core[indentifierToken.value](evaluateExpr, scope, expr).then(resolve);
+      if (identifierToken.value in core) {
+        return core[identifierToken.value](evaluateExpr, scope, expr).then(resolve);
       }
 
       // Standard languages functions that manipulate primitives
-      if (indentifierToken.value in standard) {
+      if (identifierToken.value in standard) {
         return lelPromiseAll(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr)))
           .then(args =>
-            standard[indentifierToken.value](...args)
+            standard[identifierToken.value](...args)
               .then(resolve)
           );
       }
 
       // Run a scoped function if one is found
-      const scopedFunction = findInScope(scope, indentifierToken.value);
+      const scopedFunction = findInScope(scope, identifierToken.value);
       if (scopedFunction && scopedFunction.type === symbols.FUNCTION_REFERENCE) {
         return lelPromiseAll(expr.slice(1).map(subExpr => evaluateExpr(scope, subExpr)))
           .then(args =>

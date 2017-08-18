@@ -8,4 +8,4 @@ module.exports = (ast, basepath = __dirname) => {
     const astEvaluators = ast.map((expr) => () => evaluateExpr(rootScope, expr));
     lelSeries(astEvaluators).then(resolve);
   });
-}
+};
