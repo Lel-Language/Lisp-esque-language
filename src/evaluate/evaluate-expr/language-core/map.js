@@ -27,7 +27,7 @@ const performMapping =
           () => callFunction(evaluateExpr, scope, [listElement, createToken(symbols.NUMBER, i)], mappingFunction.value)
       );
       lelSeries(mapCalls).then(values => resolve(createToken(symbols.LIST, values)));
-    }
+    };
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) =>

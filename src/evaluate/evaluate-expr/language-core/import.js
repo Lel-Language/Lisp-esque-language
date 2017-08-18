@@ -10,7 +10,7 @@ const readLelFile = require('../../../interpreter/read-lel');
 
 const lelPromise = require('../../../util/lel-promise');
 
-// Can't import interpreter from here due to circular depenencies, so just put one together from
+// Can't import interpreter from here due to circular dependencies, so just put one together from
 // the modules. Have to use evaluateExpr directly, and build a scope for it to execute in.
 const interpreter = (filename) =>
   readLelFile(filename)

@@ -7,13 +7,13 @@ const lelPromise = require('../../../../util/lel-promise');
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
     if (expr[1].type !== symbols.IDENTIFIER) {
-      reject(new Error(`Function name must be an IDENTIFER. Got ${expr[1].type} for ${expr[1].value}`));
+      reject(new Error(`Function name must be an IDENTIFIER. Got ${expr[1].type} for ${expr[1].value}`));
     }
     const fName = expr[1].value;
     const expectedArguments = expr[2]
       .map(token => {
         if (token.type !== symbols.IDENTIFIER) {
-          reject(new Error(`Function declaration arguments must be an IDENTIFER. Got ${token.type} for function ${fName}`));
+          reject(new Error(`Function declaration arguments must be an IDENTIFIER. Got ${token.type} for function ${fName}`));
         }
         return token.value;
       });

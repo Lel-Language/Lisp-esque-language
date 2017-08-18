@@ -12,7 +12,7 @@ module.exports = (evaluateExpr, scope, expr) =>
     const expectedArguments = expr[1]
       .map(token => {
         if (token.type !== symbols.IDENTIFIER) {
-          reject(new Error(`Function declaration arguments must be an IDENTIFER. Got ${token.type} for function ${fName}`));
+          reject(new Error(`Function declaration arguments must be an IDENTIFIER. Got ${token.type} for function ${fName}`));
         }
         return token.value;
       });

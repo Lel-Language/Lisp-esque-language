@@ -32,7 +32,7 @@ const performFiltering =
           const newList = list.value.filter((element, index) => values[index].value);
           resolve(createToken(symbols.LIST, newList))
         });
-    }
+    };
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) =>
