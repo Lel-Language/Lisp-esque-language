@@ -48,11 +48,11 @@ module.exports = {
             const next = ([symbols.STRING, symbols.NUMBER, symbols.BOOLEAN].indexOf(cur.type) !== -1)
               ? cur.value
               : cur.toString();
-            return createToken(symbols.STRING, acc.value + next)
+            return createToken(symbols.STRING, acc.value + next);
           }, EMPTY_STRING
         ));
       }
     }
     return Promise.resolve(createToken(symbols.LIST, []));
   }
-}
+};

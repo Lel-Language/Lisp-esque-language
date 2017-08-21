@@ -4,7 +4,7 @@ const symbols = require('../../../../symbols');
 module.exports = {
   split: (string) => {
     if (string !== symbols.STRING) {
-      Promise
+      return Promise
         .reject(new Error(`Can't split non-strings. Got ${string.type}`))
         .catch(console.error);
     }
@@ -15,4 +15,4 @@ module.exports = {
         .map(char => createToken(symbols.STRING, char)))
     );
   }
-}
+};

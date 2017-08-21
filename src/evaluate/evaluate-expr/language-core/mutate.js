@@ -4,7 +4,7 @@ const lelPromise = require('../../../util/lel-promise');
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
     if (expr[1].type !== symbols.IDENTIFIER) {
-      reject(new Error(`Variable name must be an IDENTIFER. Got ${expr[1].type} for ${expr[1].value}`));
+      reject(new Error(`Variable name must be an IDENTIFIER. Got ${expr[1].type} for ${expr[1].value}`));
     }
     evaluateExpr(scope, expr[2])
       .then(value => {

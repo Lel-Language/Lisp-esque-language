@@ -5,7 +5,7 @@ const lelReject = require('../../../../util/lel-reject');
 module.exports = {
   // List functions
   join: (list) => {
-    if (list !== symbols.LIST) {
+    if (list.type !== symbols.LIST) {
       return lelReject(new Error(`Can't join non-lists. Got ${list.type}`));
     }
     return Promise.resolve(createToken(
@@ -64,4 +64,4 @@ module.exports = {
     }
     return lelReject(new Error(`sublist operates on LIST type. Got ${list.type}`));
   }
-}
+};
