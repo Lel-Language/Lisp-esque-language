@@ -39,7 +39,7 @@ module.exports = {
   },
   nth: (list, n) => {
     if (list.type === symbols.LIST) {
-      if (n.value > 0 && n.value < list.value.length) {
+      if (n.value >= 0 && n.value < list.value.length) {
         return Promise.resolve(list.value.slice(n.value, n.value + 1)[0]);
       }
       return lelReject(new Error(`nth: bad index ${n.value}. Given list has ${list.value.length} elements`));
