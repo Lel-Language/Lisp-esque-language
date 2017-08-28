@@ -56,11 +56,11 @@ module.exports = {
         return lelReject(new Error(`start index cannot be greater than the end index for a sublist`));
       }
 
-      if (s < 0 ||  e > listLength - 1) {
+      if (s < 0 ||  e > listLength) {
         return lelReject(new Error(`sublist indexes out of range. Got start (${s}) end (${e}) for list of length ${listLength}`));
       }
 
-      return Promise.resolve(createToken(symbols.LIST, list.value.slice(s, e+1)));
+      return Promise.resolve(createToken(symbols.LIST, list.value.slice(s, e)));
     }
     return lelReject(new Error(`sublist operates on LIST type. Got ${list.type}`));
   }
