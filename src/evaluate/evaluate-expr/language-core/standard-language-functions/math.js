@@ -30,6 +30,11 @@ module.exports = {
         .reject(new Error(`/ only operates on NUMBER type`))
         .catch(console.error);
     }
+    if (y.value === 0) {
+      return Promise
+        .reject(new Error(`Divison by zero error`))
+        .catch(console.error);
+    }
     return Promise.resolve(createToken(symbols.NUMBER, x.value / y.value));
   },
   '*': (...numbers) => {
@@ -55,6 +60,11 @@ module.exports = {
     if (x.type !== symbols.NUMBER || y.type !== symbols.NUMBER) {
       return Promise
         .reject(new Error(`% only operates on NUMBER type`))
+        .catch(console.error);
+    }
+    if (y.value === 0) {
+      return Promise
+        .reject(new Error(`Divison by zero error`))
         .catch(console.error);
     }
     return Promise.resolve(createToken(symbols.NUMBER, x.value % y.value));
