@@ -182,7 +182,7 @@ The `if` keyword is used for condition checking. `if` is a function which takes 
 ```lisp
 (if (< 1 2)
   (print "1 is less than 2")
-  (print "1 is not less than 2...?))
+  (print "1 is not less than 2...?"))
 
 ; -> 1 is less than 2
 ```
@@ -327,7 +327,7 @@ You can get a list of all the elements from *start* to *end* indexes with `subli
 (let main-list (list 0 1 2 3 4 5))
 (print (sublist main-list 1 4))
 
-; -> (1, 2, 3, 4)
+; -> (1, 2, 3)
 ```
 
 You can also grab the nth element of the list with `nth`. The list is zero indexed, just like an array.
