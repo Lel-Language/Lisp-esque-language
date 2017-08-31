@@ -60,7 +60,7 @@ module.exports = {
         return lelReject(new Error(`sublist indexes out of range. Got start (${s}) end (${e}) for list of length ${listLength}`));
       }
 
-      return Promise.resolve(createToken(symbols.LIST, list.value.slice(s, e)));
+      return Promise.resolve(createToken(symbols.LIST, list.value.slice(s, e+1)));
     }
     return lelReject(new Error(`sublist operates on LIST type. Got ${list.type}`));
   }
