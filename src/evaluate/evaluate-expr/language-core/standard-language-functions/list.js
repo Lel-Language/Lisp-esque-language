@@ -56,7 +56,7 @@ module.exports = {
         return lelReject(new Error(`start index cannot be greater than the end index for a sublist`));
       }
 
-      if (s < 0 ||  e > listLength) {
+      if (s < 0 ||  e > listLength - 1) {
         return lelReject(new Error(`sublist indexes out of range. Got start (${s}) end (${e}) for list of length ${listLength}`));
       }
 
