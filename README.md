@@ -182,7 +182,7 @@ The `if` keyword is used for condition checking. `if` is a function which takes 
 ```lisp
 (if (< 1 2)
   (print "1 is less than 2")
-  (print "1 is not less than 2...?))
+  (print "1 is not less than 2...?"))
 
 ; -> 1 is less than 2
 ```
