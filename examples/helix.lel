@@ -1,3 +1,7 @@
+(use "math")
+
+(print (math-sin 2.3) "\n")
+
 (function next (n current step lis)
   (if (> n 0)
     (next (- n 1) (+ current step) step (concat lis (list current)))
@@ -22,8 +26,8 @@
 
 (function wave (t)
   (lambda (x i)
-    (let size (+ 5 (* 2 (sin (/ t 10)))))
-    (let sin-x (* size (sin (+ t i))))
+    (let size (+ 5 (* 2 (math-sin (/ t 10)))))
+    (let sin-x (* size (math-sin (+ t i))))
     (let num-spaces (+ size sin-x))
     (let spaces (left-pad num-spaces "" " "))
     (print spaces "*\n")

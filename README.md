@@ -404,6 +404,24 @@ The evaluated result of an import is the final value of the module (like a funct
 
 Imported modules run in their own scope, but can recieve access via closures and dependency injection.
 
+#### Standard Libraries
+
+The standard libraries can be accessed with the `use` keyword. Libraries are loaded loaded into the runtime as language-level keywords. For example, the math library:
+
+```lisp
+(use "math")
+
+(print (math-sin 4.2))
+
+-> -0.8715757724135882
+```
+
+The current standard library includes
+
+- Math
+  - math-sin
+  - math-cos
+
 ## Tokenisation, Parsing, and Evaluation
 
 The lel tokeniser and parser are both written in javascript from scratch. The tokeniser recognises just 8 tokens: numbers, strings, booleans, left and right parentheses, comments and whitespace, and identifiers.
