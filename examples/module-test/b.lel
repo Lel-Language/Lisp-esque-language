@@ -2,6 +2,6 @@
 (let c-func (import "./c.lel"))
 
 ; Export a lambda function
-(function from-b ()
+(lambda ()
   (print "Coming from b.lel!\n")
   (call c-func))
