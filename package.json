@@ -1,6 +1,6 @@
 {
   "name": "lel-lang",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Lel programming language(Lisp-esque language)",
   "main": "src/index.js",
   "bin": {

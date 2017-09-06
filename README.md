@@ -175,6 +175,8 @@ They can also act like javascript's [Immediately-invoked function expressions](h
 ; -> 5 cubed is 125
 ```
 
+Which might be better named as a `lambda call` in Lel.
+
 #### Conditionals
 
 The `if` keyword is used for condition checking. `if` is a function which takes 3 arguments, a boolean expression, a true expression and a false expression. The true and false expressions can also be lists of expressions.
@@ -397,6 +399,8 @@ Modules can be imported from a file with `import`.
 
 ; -> hello from FILE_A.lel!
 ```
+
+The evaluated result of an import is the final value of the module (like a function), but an imported module will also inject the variables defined in it's scope into the the importing module. Scope injection can be avoided by only exporting a `lambda` function or primitive value, or by wrapping the code of the module inside a lambda call.
 
 Imported modules run in their own scope, but can recieve access via closures and dependency injection.
 
