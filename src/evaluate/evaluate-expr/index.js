@@ -48,8 +48,9 @@ const evaluateExpr = (scope, expr) =>
       }
 
       // Core language functions
-      if (identifierToken.value in core) {
-        return core[identifierToken.value](evaluateExpr, scope, expr).then(resolve);
+      const coreFunc = core.get(identifierToken.value);
+      if (coreFunc) {
+        return coreFunc(evaluateExpr, scope, expr).then(resolve);
       }
 
       // Standard languages functions that manipulate primitives
