@@ -22,16 +22,16 @@ const interpreter = (filename) =>
       process.exit(1);
     });
 
-const injectModuleToScope = (scope, moduleScope) =>
-  (evaluated) => {
+const injectModuleToScope = (scope, moduleScope, filePath) =>
+  lelPromise((resolve, reject, evaluated) => {
     const scopeKeys = Object.keys(scope.variables);
     const clash = Object.keys(moduleScope.variables).find(msImport => scopeKeys.includes(msImport));
     if (clash) {
       return reject(new Error(`Cannot overwrite variable in scope ${clash} from module ${filePath}`));
     }
     scope.variables = Object.assign({}, scope.variables, moduleScope.variables);
-    return evaluated;
-  };
+    resolve(evaluated);
+  });
 
 module.exports = (evaluateExpr, scope, expr) =>
   lelPromise((resolve, reject) => {
@@ -46,7 +46,7 @@ module.exports = (evaluateExpr, scope, expr) =>
             .then(ast => {
               const moduleScope = createScope(null, basepath);
               evaluateExpr(moduleScope, ast)
-                .then(injectModuleToScope(scope, moduleScope))
+                .then(injectModuleToScope(scope, moduleScope, filepath))
                 .then(resolve);
             })
             .catch(console.error);
