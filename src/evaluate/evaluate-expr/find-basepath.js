@@ -3,4 +3,4 @@ const findBasepath = (scope) => {
   return scope.basepath;
 }
 
-module.exports = findBasePath;
+module.exports = findBasepath;
